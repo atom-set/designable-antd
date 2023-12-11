@@ -30,60 +30,59 @@ const isArrayCardsOperation = (name: string) =>
   name === "ArrayCards.MoveDown" ||
   name === "ArrayCards.MoveUp";
 
-export const ArrayCards: DnFC<CardProps> = observer((props) => {
+export const ArrayCollapse: DnFC<CardProps> = observer((props) => {
   const node = useTreeNode();
   const nodeId = useNodeIdProps();
   const designer = useDropTemplate("ArrayCards", (source) => {
-    const indexNode = new TreeNode({
-      componentName: node.componentName,
-      props: {
-        type: "void",
-        "x-component": "ArrayCards.Index",
-      },
-    });
-    const additionNode = new TreeNode({
-      componentName: node.componentName,
-      props: {
-        type: "void",
-        title: "Addition",
-        "x-component": "ArrayCards.Addition",
-      },
-    });
-    const removeNode = new TreeNode({
-      componentName: node.componentName,
-      props: {
-        type: "void",
-        title: "Addition",
-        "x-component": "ArrayCards.Remove",
-      },
-    });
-    const moveDownNode = new TreeNode({
-      componentName: node.componentName,
-      props: {
-        type: "void",
-        title: "Addition",
-        "x-component": "ArrayCards.MoveDown",
-      },
-    });
-    const moveUpNode = new TreeNode({
-      componentName: node.componentName,
-      props: {
-        type: "void",
-        title: "Addition",
-        "x-component": "ArrayCards.MoveUp",
-      },
-    });
+    // const indexNode = new TreeNode({
+    //   componentName: node.componentName,
+    //   props: {
+    //     type: "void",
+    //     "x-component": "ArrayCards.Index",
+    //   },
+    // });
+    // const additionNode = new TreeNode({
+    //   componentName: node.componentName,
+    //   props: {
+    //     type: "void",
+    //     title: "Addition",
+    //     "x-component": "ArrayCards.Addition",
+    //   },
+    // });
+    // const removeNode = new TreeNode({
+    //   componentName: node.componentName,
+    //   props: {
+    //     type: "void",
+    //     title: "Addition",
+    //     "x-component": "ArrayCards.Remove",
+    //   },
+    // });
+    // const moveDownNode = new TreeNode({
+    //   componentName: node.componentName,
+    //   props: {
+    //     type: "void",
+    //     title: "Addition",
+    //     "x-component": "ArrayCards.MoveDown",
+    //   },
+    // });
+    // const moveUpNode = new TreeNode({
+    //   componentName: node.componentName,
+    //   props: {
+    //     type: "void",
+    //     title: "Addition",
+    //     "x-component": "ArrayCards.MoveUp",
+    //   },
+    // });
 
     const objectNode = new TreeNode({
       componentName: node.componentName,
       props: {
         type: "object",
       },
-      children: [indexNode, ...source, removeNode, moveDownNode, moveUpNode],
+      // children: [indexNode, ...source, removeNode, moveDownNode, moveUpNode],
     });
-    return [objectNode, additionNode];
+    return [objectNode /*additionNode */];
   });
-
   const renderCard = () => {
     if (node.children.length === 0) return <DroppableWidget />;
     const additions = queryNodesByComponentPath(node, [
@@ -105,6 +104,7 @@ export const ArrayCards: DnFC<CardProps> = observer((props) => {
       "*",
       (name) => name.indexOf("ArrayCards.") === -1,
     ]);
+
     return (
       <ArrayBase disabled>
         <ArrayBase.Item index={0} record={null}>
@@ -175,73 +175,74 @@ export const ArrayCards: DnFC<CardProps> = observer((props) => {
               ensureObjectItemsNode(node).append(indexNode);
             },
           },
+
           {
             title: node.getMessage("addOperation"),
             icon: "AddOperation",
             onClick: () => {
-              const oldAdditionNode = findNodeByComponentPath(node, [
-                "ArrayCards",
-                "ArrayCards.Addition",
-              ]);
-              if (!oldAdditionNode) {
-                const additionNode = new TreeNode({
-                  componentName: node.componentName,
-                  props: {
-                    type: "void",
-                    title: "Addition",
-                    "x-component": "ArrayCards.Addition",
-                  },
-                });
-                ensureObjectItemsNode(node).insertAfter(additionNode);
-              }
-              const oldRemoveNode = findNodeByComponentPath(node, [
-                "ArrayCards",
-                "*",
-                "ArrayCards.Remove",
-              ]);
-              const oldMoveDownNode = findNodeByComponentPath(node, [
-                "ArrayCards",
-                "*",
-                "ArrayCards.MoveDown",
-              ]);
-              const oldMoveUpNode = findNodeByComponentPath(node, [
-                "ArrayCards",
-                "*",
-                "ArrayCards.MoveUp",
-              ]);
-              if (!oldRemoveNode) {
-                ensureObjectItemsNode(node).append(
-                  new TreeNode({
-                    componentName: node.componentName,
-                    props: {
-                      type: "void",
-                      "x-component": "ArrayCards.Remove",
-                    },
-                  })
-                );
-              }
-              if (!oldMoveDownNode) {
-                ensureObjectItemsNode(node).append(
-                  new TreeNode({
-                    componentName: node.componentName,
-                    props: {
-                      type: "void",
-                      "x-component": "ArrayCards.MoveDown",
-                    },
-                  })
-                );
-              }
-              if (!oldMoveUpNode) {
-                ensureObjectItemsNode(node).append(
-                  new TreeNode({
-                    componentName: node.componentName,
-                    props: {
-                      type: "void",
-                      "x-component": "ArrayCards.MoveUp",
-                    },
-                  })
-                );
-              }
+              // const oldAdditionNode = findNodeByComponentPath(node, [
+              //   "ArrayCards",
+              //   "ArrayCards.Addition",
+              // ]);
+              // if (!oldAdditionNode) {
+              //   const additionNode = new TreeNode({
+              //     componentName: node.componentName,
+              //     props: {
+              //       type: "void",
+              //       title: "Addition",
+              //       "x-component": "ArrayCards.Addition",
+              //     },
+              //   });
+              //   ensureObjectItemsNode(node).insertAfter(additionNode);
+              // }
+              // const oldRemoveNode = findNodeByComponentPath(node, [
+              //   "ArrayCards",
+              //   "*",
+              //   "ArrayCards.Remove",
+              // ]);
+              // const oldMoveDownNode = findNodeByComponentPath(node, [
+              //   "ArrayCards",
+              //   "*",
+              //   "ArrayCards.MoveDown",
+              // ]);
+              // const oldMoveUpNode = findNodeByComponentPath(node, [
+              //   "ArrayCards",
+              //   "*",
+              //   "ArrayCards.MoveUp",
+              // ]);
+              // if (!oldRemoveNode) {
+              //   ensureObjectItemsNode(node).append(
+              //     new TreeNode({
+              //       componentName: node.componentName,
+              //       props: {
+              //         type: "void",
+              //         "x-component": "ArrayCards.Remove",
+              //       },
+              //     })
+              //   );
+              // }
+              // if (!oldMoveDownNode) {
+              //   ensureObjectItemsNode(node).append(
+              //     new TreeNode({
+              //       componentName: node.componentName,
+              //       props: {
+              //         type: "void",
+              //         "x-component": "ArrayCards.MoveDown",
+              //       },
+              //     })
+              //   );
+              // }
+              // if (!oldMoveUpNode) {
+              //   ensureObjectItemsNode(node).append(
+              //     new TreeNode({
+              //       componentName: node.componentName,
+              //       props: {
+              //         type: "void",
+              //         "x-component": "ArrayCards.MoveUp",
+              //       },
+              //     })
+              //   );
+              // }
             },
           },
         ]}
@@ -250,12 +251,12 @@ export const ArrayCards: DnFC<CardProps> = observer((props) => {
   );
 });
 
-ArrayBase.mixin(ArrayCards);
+ArrayBase.mixin(ArrayCollapse);
 
-ArrayCards.Behavior = createArrayBehavior("ArrayCards");
+ArrayCollapse.Behavior = createArrayBehavior("ArrayCollapse");
 
-ArrayCards.Resource = createResource({
-  icon: "ArrayCardsSource",
+ArrayCollapse.Resource = createResource({
+  icon: "ArrayCollapse",
   elements: [
     {
       componentName: "Field",

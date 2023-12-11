@@ -64,6 +64,7 @@ import {
   FormCollapse,
   FormLayout,
   FormGrid,
+  CustomComponent,
 } from "../src";
 
 setNpmCDNRegistry("//unpkg.com");
@@ -155,7 +156,10 @@ const App = () => {
               title="sources.Arrays"
               sources={[ArrayCards, ArrayTable]}
             />
-            <ResourceWidget title="sources.Displays" sources={[Text]} />
+            <ResourceWidget
+              title="sources.Displays"
+              sources={[CustomComponent, Text]}
+            />
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
             <OutlineTreeWidget />
@@ -195,6 +199,7 @@ const App = () => {
                       Upload,
                       Switch,
                       Text,
+                      CustomComponent,
                       Card,
                       ArrayCards,
                       ArrayTable,

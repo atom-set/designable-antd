@@ -119,6 +119,7 @@ const SchemaField = createSchemaField({
     Editable,
     Input,
     Text,
+    CustomComponent,
     NumberPicker,
     Switch,
     Password,
