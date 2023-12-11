@@ -6,7 +6,7 @@ import autoprefixer from "autoprefixer";
 //import { getThemeVariables } from 'antd/dist/theme'
 
 const getWorkspaceAlias = () => {
-  const basePath = path.resolve(__dirname, "../../../");
+  const basePath = path.resolve(__dirname, "../../");
   const pkg = fs.readJSONSync(path.resolve(basePath, "package.json")) || {};
   const results = {};
   const workspaces = pkg.workspaces;
