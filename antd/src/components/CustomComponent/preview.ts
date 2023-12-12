@@ -3,10 +3,9 @@ import { createBehavior, createResource } from "@designable/core";
 import { DnFC } from "@designable/react";
 import { createVoidFieldSchema } from "../Field";
 import { AllSchemas } from "../../schemas";
-import { AllLocales } from "../../locales";
 import cls from "classnames";
 
-export interface IDesignableTextProps {
+export interface IDesignableCustomComponentProps {
   value?: string;
   content?: string;
   mode?: "normal" | "h1" | "h2" | "h3" | "p";
@@ -14,7 +13,9 @@ export interface IDesignableTextProps {
   className?: string;
 }
 
-export const CustomComponent: DnFC<IDesignableTextProps> = (props) => {
+export const CustomComponent: DnFC<IDesignableCustomComponentProps> = (
+  props
+) => {
   const tagName = props.mode === "normal" || !props.mode ? "div" : props.mode;
   return React.createElement(
     tagName,
