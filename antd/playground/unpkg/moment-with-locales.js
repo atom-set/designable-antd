@@ -7,7 +7,7 @@
 })(this, function () {
   "use strict";
 
-  let hookCallback;
+  var hookCallback;
 
   function hooks() {
     return hookCallback.apply(null, arguments);
@@ -43,7 +43,7 @@
     if (Object.getOwnPropertyNames) {
       return Object.getOwnPropertyNames(obj).length === 0;
     } else {
-      let k;
+      var k;
       for (k in obj) {
         if (hasOwnProp(obj, k)) {
           return false;
@@ -72,7 +72,7 @@
   }
 
   function map(arr, fn) {
-    let res = [],
+    var res = [],
       i,
       arrLen = arr.length;
     for (i = 0; i < arrLen; ++i) {
@@ -82,7 +82,7 @@
   }
 
   function extend(a, b) {
-    for (let i in b) {
+    for (var i in b) {
       if (hasOwnProp(b, i)) {
         a[i] = b[i];
       }
@@ -132,12 +132,12 @@
     return m._pf;
   }
 
-  let some;
+  var some;
   if (Array.prototype.some) {
     some = Array.prototype.some;
   } else {
     some = function (fun) {
-      let t = Object(this),
+      var t = Object(this),
         len = t.length >>> 0,
         i;
 
@@ -153,7 +153,7 @@
 
   function isValid(m) {
     if (m._isValid == null) {
-      let flags = getParsingFlags(m),
+      var flags = getParsingFlags(m),
         parsedParts = some.call(flags.parsedDateParts, function (i) {
           return i != null;
         }),
@@ -188,7 +188,7 @@
   }
 
   function createInvalid(flags) {
-    let m = createUTC(NaN);
+    var m = createUTC(NaN);
     if (flags != null) {
       extend(getParsingFlags(m), flags);
     } else {
@@ -200,11 +200,11 @@
 
   // Plugins that add properties should also add the key here (null value),
   // so we can properly clone ourselves.
-  let momentProperties = (hooks.momentProperties = []),
+  var momentProperties = (hooks.momentProperties = []),
     updateInProgress = false;
 
   function copyConfig(to, from) {
-    let i,
+    var i,
       prop,
       val,
       momentPropertiesLen = momentProperties.length;
@@ -286,14 +286,14 @@
   }
 
   function deprecate(msg, fn) {
-    let firstTime = true;
+    var firstTime = true;
 
     return extend(function () {
       if (hooks.deprecationHandler != null) {
         hooks.deprecationHandler(null, msg);
       }
       if (firstTime) {
-        let args = [],
+        var args = [],
           arg,
           i,
           key,
@@ -326,7 +326,7 @@
     }, fn);
   }
 
-  let deprecations = {};
+  var deprecations = {};
 
   function deprecateSimple(name, msg) {
     if (hooks.deprecationHandler != null) {
@@ -349,7 +349,7 @@
   }
 
   function set(config) {
-    let prop, i;
+    var prop, i;
     for (i in config) {
       if (hasOwnProp(config, i)) {
         prop = config[i];
@@ -372,7 +372,7 @@
   }
 
   function mergeConfigs(parentConfig, childConfig) {
-    let res = extend({}, parentConfig),
+    var res = extend({}, parentConfig),
       prop;
     for (prop in childConfig) {
       if (hasOwnProp(childConfig, prop)) {
@@ -406,13 +406,13 @@
     }
   }
 
-  let keys;
+  var keys;
 
   if (Object.keys) {
     keys = Object.keys;
   } else {
     keys = function (obj) {
-      let i,
+      var i,
         res = [];
       for (i in obj) {
         if (hasOwnProp(obj, i)) {
@@ -423,7 +423,7 @@
     };
   }
 
-  let defaultCalendar = {
+  var defaultCalendar = {
     sameDay: "[Today at] LT",
     nextDay: "[Tomorrow at] LT",
     nextWeek: "dddd [at] LT",
@@ -433,12 +433,12 @@
   };
 
   function calendar(key, mom, now) {
-    let output = this._calendar[key] || this._calendar["sameElse"];
+    var output = this._calendar[key] || this._calendar["sameElse"];
     return isFunction(output) ? output.call(mom, now) : output;
   }
 
   function zeroFill(number, targetLength, forceSign) {
-    let absNumber = "" + Math.abs(number),
+    var absNumber = "" + Math.abs(number),
       zerosToFill = targetLength - absNumber.length,
       sign = number >= 0;
     return (
@@ -448,7 +448,7 @@
     );
   }
 
-  let formattingTokens =
+  var formattingTokens =
       /(\[[^\[]*\])|(\\)?([Hh]mm(ss)?|Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Qo?|N{1,5}|YYYYYY|YYYYY|YYYY|YY|y{2,4}|yo?|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|kk?|mm?|ss?|S{1,9}|x|X|zz?|ZZ?|.)/g,
     localFormattingTokens = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
     formatFunctions = {},
@@ -459,7 +459,7 @@
   // ordinal:  'Mo'
   // callback: function () { this.month() + 1 }
   function addFormatToken(token, padded, ordinal, callback) {
-    let func = callback;
+    var func = callback;
     if (typeof callback === "string") {
       func = function () {
         return this[callback]();
@@ -488,7 +488,7 @@
   }
 
   function makeFormatFunction(format) {
-    let array = format.match(formattingTokens),
+    var array = format.match(formattingTokens),
       i,
       length;
 
@@ -501,7 +501,7 @@
     }
 
     return function (mom) {
-      let output = "",
+      var output = "",
         i;
       for (i = 0; i < length; i++) {
         output += isFunction(array[i]) ? array[i].call(mom, format) : array[i];
@@ -524,7 +524,7 @@
   }
 
   function expandFormat(format, locale) {
-    let i = 5;
+    var i = 5;
 
     function replaceLongDateFormatTokens(input) {
       return locale.longDateFormat(input) || input;
@@ -543,7 +543,7 @@
     return format;
   }
 
-  let defaultLongDateFormat = {
+  var defaultLongDateFormat = {
     LTS: "h:mm:ss A",
     LT: "h:mm A",
     L: "MM/DD/YYYY",
@@ -553,7 +553,7 @@
   };
 
   function longDateFormat(key) {
-    let format = this._longDateFormat[key],
+    var format = this._longDateFormat[key],
       formatUpper = this._longDateFormat[key.toUpperCase()];
 
     if (format || !formatUpper) {
@@ -573,20 +573,20 @@
     return this._longDateFormat[key];
   }
 
-  let defaultInvalidDate = "Invalid date";
+  var defaultInvalidDate = "Invalid date";
 
   function invalidDate() {
     return this._invalidDate;
   }
 
-  let defaultOrdinal = "%d",
+  var defaultOrdinal = "%d",
     defaultDayOfMonthOrdinalParse = /\d{1,2}/;
 
   function ordinal(number) {
     return this._ordinal.replace("%d", number);
   }
 
-  let defaultRelativeTime = {
+  var defaultRelativeTime = {
     future: "in %s",
     past: "%s ago",
     s: "a few seconds",
@@ -606,21 +606,21 @@
   };
 
   function relativeTime(number, withoutSuffix, string, isFuture) {
-    let output = this._relativeTime[string];
+    var output = this._relativeTime[string];
     return isFunction(output)
       ? output(number, withoutSuffix, string, isFuture)
       : output.replace(/%d/i, number);
   }
 
   function pastFuture(diff, output) {
-    let format = this._relativeTime[diff > 0 ? "future" : "past"];
+    var format = this._relativeTime[diff > 0 ? "future" : "past"];
     return isFunction(format) ? format(output) : format.replace(/%s/i, output);
   }
 
-  let aliases = {};
+  var aliases = {};
 
   function addUnitAlias(unit, shorthand) {
-    let lowerCase = unit.toLowerCase();
+    var lowerCase = unit.toLowerCase();
     aliases[lowerCase] = aliases[lowerCase + "s"] = aliases[shorthand] = unit;
   }
 
@@ -631,7 +631,7 @@
   }
 
   function normalizeObjectUnits(inputObject) {
-    let normalizedInput = {},
+    var normalizedInput = {},
       normalizedProp,
       prop;
 
@@ -647,14 +647,14 @@
     return normalizedInput;
   }
 
-  let priorities = {};
+  var priorities = {};
 
   function addUnitPriority(unit, priority) {
     priorities[unit] = priority;
   }
 
   function getPrioritizedUnits(unitsObj) {
-    let units = [],
+    var units = [],
       u;
     for (u in unitsObj) {
       if (hasOwnProp(unitsObj, u)) {
@@ -681,7 +681,7 @@
   }
 
   function toInt(argumentForCoercion) {
-    let coercedNumber = +argumentForCoercion,
+    var coercedNumber = +argumentForCoercion,
       value = 0;
 
     if (coercedNumber !== 0 && isFinite(coercedNumber)) {
@@ -742,7 +742,7 @@
   function stringSet(units, value) {
     if (typeof units === "object") {
       units = normalizeObjectUnits(units);
-      let prioritized = getPrioritizedUnits(units),
+      var prioritized = getPrioritizedUnits(units),
         i,
         prioritizedLen = prioritized.length;
       for (i = 0; i < prioritizedLen; i++) {
@@ -757,7 +757,7 @@
     return this;
   }
 
-  let match1 = /\d/, //       0 - 9
+  var match1 = /\d/, //       0 - 9
     match2 = /\d\d/, //      00 - 99
     match3 = /\d{3}/, //     000 - 999
     match4 = /\d{4}/, //    0000 - 9999
@@ -815,10 +815,10 @@
     return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
   }
 
-  let tokens = {};
+  var tokens = {};
 
   function addParseToken(token, callback) {
-    let i,
+    var i,
       func = callback,
       tokenLen;
     if (typeof token === "string") {
@@ -848,7 +848,7 @@
     }
   }
 
-  let YEAR = 0,
+  var YEAR = 0,
     MONTH = 1,
     DATE = 2,
     HOUR = 3,
@@ -862,14 +862,14 @@
     return ((n % x) + x) % x;
   }
 
-  let indexOf;
+  var indexOf;
 
   if (Array.prototype.indexOf) {
     indexOf = Array.prototype.indexOf;
   } else {
     indexOf = function (o) {
       // I know
-      let i;
+      var i;
       for (i = 0; i < this.length; ++i) {
         if (this[i] === o) {
           return i;
@@ -883,7 +883,7 @@
     if (isNaN(year) || isNaN(month)) {
       return NaN;
     }
-    let modMonth = mod(month, 12);
+    var modMonth = mod(month, 12);
     year += (month - modMonth) / 12;
     return modMonth === 1
       ? isLeapYear(year)
@@ -930,7 +930,7 @@
   });
 
   addParseToken(["MMM", "MMMM"], function (input, array, config, token) {
-    let month = config._locale.monthsParse(input, token, config._strict);
+    var month = config._locale.monthsParse(input, token, config._strict);
     // if we didn't find a month name, mark the date as invalid.
     if (month != null) {
       array[MONTH] = month;
@@ -941,7 +941,7 @@
 
   // LOCALES
 
-  let defaultLocaleMonths =
+  var defaultLocaleMonths =
       "January_February_March_April_May_June_July_August_September_October_November_December".split(
         "_"
       ),
@@ -978,7 +978,7 @@
   }
 
   function handleStrictParse(monthName, format, strict) {
-    let i,
+    var i,
       ii,
       mom,
       llc = monthName.toLocaleLowerCase();
@@ -1025,7 +1025,7 @@
   }
 
   function localeMonthsParse(monthName, format, strict) {
-    let i, mom, regex;
+    var i, mom, regex;
 
     if (this._monthsParseExact) {
       return handleStrictParse.call(this, monthName, format, strict);
@@ -1079,7 +1079,7 @@
   // MOMENTS
 
   function setMonth(mom, value) {
-    let dayOfMonth;
+    var dayOfMonth;
 
     if (!mom.isValid()) {
       // No op
@@ -1162,7 +1162,7 @@
       return b.length - a.length;
     }
 
-    let shortPieces = [],
+    var shortPieces = [],
       longPieces = [],
       mixedPieces = [],
       i,
@@ -1203,7 +1203,7 @@
   // FORMATTING
 
   addFormatToken("Y", 0, 0, function () {
-    let y = this.year();
+    var y = this.year();
     return y <= 9999 ? zeroFill(y, 4) : "+" + y;
   });
 
@@ -1257,7 +1257,7 @@
 
   // MOMENTS
 
-  let getSetYear = makeGetSet("FullYear", true);
+  var getSetYear = makeGetSet("FullYear", true);
 
   function getIsLeapYear() {
     return isLeapYear(this.year());
@@ -1266,7 +1266,7 @@
   function createDate(y, m, d, h, M, s, ms) {
     // can't just apply() to create a date:
     // https://stackoverflow.com/q/181348
-    let date;
+    var date;
     // the date constructor remaps years 0-99 to 1900-1999
     if (y < 100 && y >= 0) {
       // preserve leap years using a full 400 year cycle, then reset
@@ -1282,7 +1282,7 @@
   }
 
   function createUTCDate(y) {
-    let date, args;
+    var date, args;
     // the Date.UTC function remaps years 0-99 to 1900-1999
     if (y < 100 && y >= 0) {
       args = Array.prototype.slice.call(arguments);
@@ -1301,7 +1301,7 @@
 
   // start-of-first-week - start-of-year
   function firstWeekOffset(year, dow, doy) {
-    let // first-week day -- which january is always in the first week (4 for iso, 1 for other)
+    var // first-week day -- which january is always in the first week (4 for iso, 1 for other)
       fwd = 7 + dow - doy,
       // first-week day local weekday -- which local weekday is fwd
       fwdlw = (7 + createUTCDate(year, 0, fwd).getUTCDay() - dow) % 7;
@@ -1311,7 +1311,7 @@
 
   // https://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
   function dayOfYearFromWeeks(year, week, weekday, dow, doy) {
-    let localWeekday = (7 + weekday - dow) % 7,
+    var localWeekday = (7 + weekday - dow) % 7,
       weekOffset = firstWeekOffset(year, dow, doy),
       dayOfYear = 1 + 7 * (week - 1) + localWeekday + weekOffset,
       resYear,
@@ -1335,7 +1335,7 @@
   }
 
   function weekOfYear(mom, dow, doy) {
-    let weekOffset = firstWeekOffset(mom.year(), dow, doy),
+    var weekOffset = firstWeekOffset(mom.year(), dow, doy),
       week = Math.floor((mom.dayOfYear() - weekOffset - 1) / 7) + 1,
       resWeek,
       resYear;
@@ -1358,7 +1358,7 @@
   }
 
   function weeksInYear(year, dow, doy) {
-    let weekOffset = firstWeekOffset(year, dow, doy),
+    var weekOffset = firstWeekOffset(year, dow, doy),
       weekOffsetNext = firstWeekOffset(year + 1, dow, doy);
     return (daysInYear(year) - weekOffset + weekOffsetNext) / 7;
   }
@@ -1400,7 +1400,7 @@
     return weekOfYear(mom, this._week.dow, this._week.doy).week;
   }
 
-  let defaultLocaleWeek = {
+  var defaultLocaleWeek = {
     dow: 0, // Sunday is the first day of the week.
     doy: 6, // The week that contains Jan 6th is the first week of the year.
   };
@@ -1416,12 +1416,12 @@
   // MOMENTS
 
   function getSetWeek(input) {
-    let week = this.localeData().week(this);
+    var week = this.localeData().week(this);
     return input == null ? week : this.add((input - week) * 7, "d");
   }
 
   function getSetISOWeek(input) {
-    let week = weekOfYear(this, 1, 4).week;
+    var week = weekOfYear(this, 1, 4).week;
     return input == null ? week : this.add((input - week) * 7, "d");
   }
 
@@ -1473,7 +1473,7 @@
   addWeekParseToken(
     ["dd", "ddd", "dddd"],
     function (input, week, config, token) {
-      let weekday = config._locale.weekdaysParse(input, token, config._strict);
+      var weekday = config._locale.weekdaysParse(input, token, config._strict);
       // if we didn't get a weekday name, mark the date as invalid
       if (weekday != null) {
         week.d = weekday;
@@ -1518,7 +1518,7 @@
     return ws.slice(n, 7).concat(ws.slice(0, n));
   }
 
-  let defaultLocaleWeekdays =
+  var defaultLocaleWeekdays =
       "Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday".split("_"),
     defaultLocaleWeekdaysShort = "Sun_Mon_Tue_Wed_Thu_Fri_Sat".split("_"),
     defaultLocaleWeekdaysMin = "Su_Mo_Tu_We_Th_Fr_Sa".split("_"),
@@ -1527,7 +1527,7 @@
     defaultWeekdaysMinRegex = matchWord;
 
   function localeWeekdays(m, format) {
-    let weekdays = isArray(this._weekdays)
+    var weekdays = isArray(this._weekdays)
       ? this._weekdays
       : this._weekdays[
           m && m !== true && this._weekdays.isFormat.test(format)
@@ -1558,7 +1558,7 @@
   }
 
   function handleStrictParse$1(weekdayName, format, strict) {
-    let i,
+    var i,
       ii,
       mom,
       llc = weekdayName.toLocaleLowerCase();
@@ -1631,7 +1631,7 @@
   }
 
   function localeWeekdaysParse(weekdayName, format, strict) {
-    let i, mom, regex;
+    var i, mom, regex;
 
     if (this._weekdaysParseExact) {
       return handleStrictParse$1.call(this, weekdayName, format, strict);
@@ -1703,7 +1703,7 @@
     if (!this.isValid()) {
       return input != null ? this : NaN;
     }
-    let day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
+    var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
     if (input != null) {
       input = parseWeekday(input, this.localeData());
       return this.add(input - day, "d");
@@ -1716,7 +1716,7 @@
     if (!this.isValid()) {
       return input != null ? this : NaN;
     }
-    let weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
+    var weekday = (this.day() + 7 - this.localeData()._week.dow) % 7;
     return input == null ? weekday : this.add(input - weekday, "d");
   }
 
@@ -1730,7 +1730,7 @@
     // as a setter, sunday should belong to the previous week.
 
     if (input != null) {
-      let weekday = parseIsoWeekday(input, this.localeData());
+      var weekday = parseIsoWeekday(input, this.localeData());
       return this.day(this.day() % 7 ? weekday : weekday - 7);
     } else {
       return this.day() || 7;
@@ -1802,7 +1802,7 @@
       return b.length - a.length;
     }
 
-    let minPieces = [],
+    var minPieces = [],
       shortPieces = [],
       longPieces = [],
       mixedPieces = [],
@@ -1931,7 +1931,7 @@
 
   addParseToken(["H", "HH"], HOUR);
   addParseToken(["k", "kk"], function (input, array, config) {
-    let kInput = toInt(input);
+    var kInput = toInt(input);
     array[HOUR] = kInput === 24 ? 0 : kInput;
   });
   addParseToken(["a", "A"], function (input, array, config) {
@@ -1943,13 +1943,13 @@
     getParsingFlags(config).bigHour = true;
   });
   addParseToken("hmm", function (input, array, config) {
-    let pos = input.length - 2;
+    var pos = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos));
     array[MINUTE] = toInt(input.substr(pos));
     getParsingFlags(config).bigHour = true;
   });
   addParseToken("hmmss", function (input, array, config) {
-    let pos1 = input.length - 4,
+    var pos1 = input.length - 4,
       pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
     array[MINUTE] = toInt(input.substr(pos1, 2));
@@ -1957,12 +1957,12 @@
     getParsingFlags(config).bigHour = true;
   });
   addParseToken("Hmm", function (input, array, config) {
-    let pos = input.length - 2;
+    var pos = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos));
     array[MINUTE] = toInt(input.substr(pos));
   });
   addParseToken("Hmmss", function (input, array, config) {
-    let pos1 = input.length - 4,
+    var pos1 = input.length - 4,
       pos2 = input.length - 2;
     array[HOUR] = toInt(input.substr(0, pos1));
     array[MINUTE] = toInt(input.substr(pos1, 2));
@@ -1977,7 +1977,7 @@
     return (input + "").toLowerCase().charAt(0) === "p";
   }
 
-  let defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i,
+  var defaultLocaleMeridiemParse = /[ap]\.?m?\.?/i,
     // Setting the hour should keep the time, because the user explicitly
     // specified which hour they want. So trying to maintain the same hour (in
     // a new timezone) makes sense. Adding/subtracting hours does not follow
@@ -1992,7 +1992,7 @@
     }
   }
 
-  let baseConfig = {
+  var baseConfig = {
     calendar: defaultCalendar,
     longDateFormat: defaultLongDateFormat,
     invalidDate: defaultInvalidDate,
@@ -2013,12 +2013,12 @@
   };
 
   // internal storage for locale config files
-  let locales = {},
+  var locales = {},
     localeFamilies = {},
     globalLocale;
 
   function commonPrefix(arr1, arr2) {
-    let i,
+    var i,
       minl = Math.min(arr1.length, arr2.length);
     for (i = 0; i < minl; i += 1) {
       if (arr1[i] !== arr2[i]) {
@@ -2036,7 +2036,7 @@
   // try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
   // substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
   function chooseLocale(names) {
-    let i = 0,
+    var i = 0,
       j,
       next,
       locale,
@@ -2069,7 +2069,7 @@
   }
 
   function loadLocale(name) {
-    let oldLocale = null,
+    var oldLocale = null,
       aliasedRequire;
     // TODO: Find a better way to register and load all the locales in Node
     if (
@@ -2097,7 +2097,7 @@
   // no arguments are passed in, it will simply return the current global
   // locale key.
   function getSetGlobalLocale(key, values) {
-    let data;
+    var data;
     if (key) {
       if (isUndefined(values)) {
         data = getLocale(key);
@@ -2123,7 +2123,7 @@
 
   function defineLocale(name, config) {
     if (config !== null) {
-      let locale,
+      var locale,
         parentConfig = baseConfig;
       config.abbr = name;
       if (locales[name] != null) {
@@ -2177,7 +2177,7 @@
 
   function updateLocale(name, config) {
     if (config != null) {
-      let locale,
+      var locale,
         tmpLocale,
         parentConfig = baseConfig;
 
@@ -2222,7 +2222,7 @@
 
   // returns locale data
   function getLocale(key) {
-    let locale;
+    var locale;
 
     if (key && key._locale && key._locale._abbr) {
       key = key._locale._abbr;
@@ -2249,7 +2249,7 @@
   }
 
   function checkOverflow(m) {
-    let overflow,
+    var overflow,
       a = m._a;
 
     if (a && getParsingFlags(m).overflow === -2) {
@@ -2292,7 +2292,7 @@
 
   // iso 8601 regex
   // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
-  let extendedIsoRegex =
+  var extendedIsoRegex =
       /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
     basicIsoRegex =
       /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
@@ -2343,7 +2343,7 @@
 
   // date from iso format
   function configFromISO(config) {
-    let i,
+    var i,
       l,
       string = config._i,
       match = extendedIsoRegex.exec(string) || basicIsoRegex.exec(string),
@@ -2407,7 +2407,7 @@
     minuteStr,
     secondStr
   ) {
-    let result = [
+    var result = [
       untruncateYear(yearStr),
       defaultLocaleMonthsShort.indexOf(monthStr),
       parseInt(dayStr, 10),
@@ -2423,7 +2423,7 @@
   }
 
   function untruncateYear(yearStr) {
-    let year = parseInt(yearStr, 10);
+    var year = parseInt(yearStr, 10);
     if (year <= 49) {
       return 2000 + year;
     } else if (year <= 999) {
@@ -2444,7 +2444,7 @@
   function checkWeekday(weekdayStr, parsedInput, config) {
     if (weekdayStr) {
       // TODO: Replace the vanilla JS Date object with an independent day-of-week check.
-      let weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
+      var weekdayProvided = defaultLocaleWeekdaysShort.indexOf(weekdayStr),
         weekdayActual = new Date(
           parsedInput[0],
           parsedInput[1],
@@ -2466,7 +2466,7 @@
       // the only allowed military tz is Z
       return 0;
     } else {
-      let hm = parseInt(numOffset, 10),
+      var hm = parseInt(numOffset, 10),
         m = hm % 100,
         h = (hm - m) / 100;
       return h * 60 + m;
@@ -2475,7 +2475,7 @@
 
   // date and time from ref 2822 format
   function configFromRFC2822(config) {
-    let match = rfc2822.exec(preprocessRFC2822(config._i)),
+    var match = rfc2822.exec(preprocessRFC2822(config._i)),
       parsedArray;
     if (match) {
       parsedArray = extractFromRFC2822Strings(
@@ -2504,7 +2504,7 @@
 
   // date from 1) ASP.NET, 2) ISO, 3) RFC 2822 formats, or 4) optional fallback if parsing isn't strict
   function configFromString(config) {
-    let matched = aspNetJsonRegex.exec(config._i);
+    var matched = aspNetJsonRegex.exec(config._i);
     if (matched !== null) {
       config._d = new Date(+matched[1]);
       return;
@@ -2554,7 +2554,7 @@
 
   function currentDateArray(config) {
     // hooks is actually the exported moment object
-    let nowValue = new Date(hooks.now());
+    var nowValue = new Date(hooks.now());
     if (config._useUTC) {
       return [
         nowValue.getUTCFullYear(),
@@ -2570,7 +2570,7 @@
   // note: all values past the year are optional and will default to the lowest possible value.
   // [year, month, day , hour, minute, second, millisecond]
   function configFromArray(config) {
-    let i,
+    var i,
       date,
       input = [],
       currentDate,
@@ -2659,7 +2659,7 @@
   }
 
   function dayOfYearFromWeekInfo(config) {
-    let w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
+    var w, weekYear, week, weekday, dow, doy, temp, weekdayOverflow, curWeek;
 
     w = config._w;
     if (w.GG != null || w.W != null || w.E != null) {
@@ -2740,7 +2740,7 @@
     getParsingFlags(config).empty = true;
 
     // This array is used to make a Date, either with `new Date` or `Date.UTC`
-    let string = "" + config._i,
+    var string = "" + config._i,
       i,
       parsedInput,
       tokens,
@@ -2815,7 +2815,7 @@
   }
 
   function meridiemFixWrap(locale, hour, meridiem) {
-    let isPm;
+    var isPm;
 
     if (meridiem == null) {
       // nothing to do
@@ -2841,7 +2841,7 @@
 
   // date from string and array of format strings
   function configFromStringAndArray(config) {
-    let tempConfig,
+    var tempConfig,
       bestMoment,
       scoreToBeat,
       i,
@@ -2906,7 +2906,7 @@
       return;
     }
 
-    let i = normalizeObjectUnits(config._i),
+    var i = normalizeObjectUnits(config._i),
       dayOrDate = i.day === undefined ? i.date : i.day;
     config._a = map(
       [i.year, i.month, dayOrDate, i.hour, i.minute, i.second, i.millisecond],
@@ -2919,7 +2919,7 @@
   }
 
   function createFromConfig(config) {
-    let res = new Moment(checkOverflow(prepareConfig(config)));
+    var res = new Moment(checkOverflow(prepareConfig(config)));
     if (res._nextDay) {
       // Adding is smart enough around DST
       res.add(1, "d");
@@ -2930,7 +2930,7 @@
   }
 
   function prepareConfig(config) {
-    let input = config._i,
+    var input = config._i,
       format = config._f;
 
     config._locale = config._locale || getLocale(config._l);
@@ -2963,7 +2963,7 @@
   }
 
   function configFromInput(config) {
-    let input = config._i;
+    var input = config._i;
     if (isUndefined(input)) {
       config._d = new Date(hooks.now());
     } else if (isDate(input)) {
@@ -2986,7 +2986,7 @@
   }
 
   function createLocalOrUTC(input, format, locale, strict, isUTC) {
-    let c = {};
+    var c = {};
 
     if (format === true || format === false) {
       strict = format;
@@ -3020,10 +3020,10 @@
     return createLocalOrUTC(input, format, locale, strict, false);
   }
 
-  let prototypeMin = deprecate(
+  var prototypeMin = deprecate(
       "moment().min is deprecated, use moment.max instead. http://momentjs.com/guides/#/warnings/min-max/",
       function () {
-        let other = createLocal.apply(null, arguments);
+        var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
           return other < this ? this : other;
         } else {
@@ -3034,7 +3034,7 @@
     prototypeMax = deprecate(
       "moment().max is deprecated, use moment.min instead. http://momentjs.com/guides/#/warnings/min-max/",
       function () {
-        let other = createLocal.apply(null, arguments);
+        var other = createLocal.apply(null, arguments);
         if (this.isValid() && other.isValid()) {
           return other > this ? this : other;
         } else {
@@ -3049,7 +3049,7 @@
   // moments should either be an array of moment objects or an array, whose
   // first element is an array of moment objects.
   function pickBy(fn, moments) {
-    let res, i;
+    var res, i;
     if (moments.length === 1 && isArray(moments[0])) {
       moments = moments[0];
     }
@@ -3067,22 +3067,22 @@
 
   // TODO: Use [].sort instead?
   function min() {
-    let args = [].slice.call(arguments, 0);
+    var args = [].slice.call(arguments, 0);
 
     return pickBy("isBefore", args);
   }
 
   function max() {
-    let args = [].slice.call(arguments, 0);
+    var args = [].slice.call(arguments, 0);
 
     return pickBy("isAfter", args);
   }
 
-  let now = function () {
+  var now = function () {
     return Date.now ? Date.now() : +new Date();
   };
 
-  let ordering = [
+  var ordering = [
     "year",
     "quarter",
     "month",
@@ -3095,7 +3095,7 @@
   ];
 
   function isDurationValid(m) {
-    let key,
+    var key,
       unitHasDecimal = false,
       i,
       orderLen = ordering.length;
@@ -3134,7 +3134,7 @@
   }
 
   function Duration(duration) {
-    let normalizedInput = normalizeObjectUnits(duration),
+    var normalizedInput = normalizeObjectUnits(duration),
       years = normalizedInput.year || 0,
       quarters = normalizedInput.quarter || 0,
       months = normalizedInput.month || 0,
@@ -3182,7 +3182,7 @@
 
   // compare two arrays, return the number of differences
   function compareArrays(array1, array2, dontConvert) {
-    let len = Math.min(array1.length, array2.length),
+    var len = Math.min(array1.length, array2.length),
       lengthDiff = Math.abs(array1.length - array2.length),
       diffs = 0,
       i;
@@ -3201,7 +3201,7 @@
 
   function offset(token, separator) {
     addFormatToken(token, 0, 0, function () {
-      let offset = this.utcOffset(),
+      var offset = this.utcOffset(),
         sign = "+";
       if (offset < 0) {
         offset = -offset;
@@ -3233,10 +3233,10 @@
   // timezone chunker
   // '+10:00' > ['10',  '00']
   // '-1530'  > ['-15', '30']
-  let chunkOffset = /([\+\-]|\d\d)/gi;
+  var chunkOffset = /([\+\-]|\d\d)/gi;
 
   function offsetFromString(matcher, string) {
-    let matches = (string || "").match(matcher),
+    var matches = (string || "").match(matcher),
       chunk,
       parts,
       minutes;
@@ -3254,7 +3254,7 @@
 
   // Return a moment from input, that is local/utc/zone equivalent to model.
   function cloneWithOffset(input, model) {
-    let res, diff;
+    var res, diff;
     if (model._isUTC) {
       res = model.clone();
       diff =
@@ -3295,7 +3295,7 @@
   // _changeInProgress == true case, then we have to adjust, because
   // there is no such time in the given timezone.
   function getSetOffset(input, keepLocalTime, keepMinutes) {
-    let offset = this._offset || 0,
+    var offset = this._offset || 0,
       localAdjust;
     if (!this.isValid()) {
       return input != null ? this : NaN;
@@ -3366,7 +3366,7 @@
     if (this._tzm != null) {
       this.utcOffset(this._tzm, false, true);
     } else if (typeof this._i === "string") {
-      let tZone = offsetFromString(matchOffset, this._i);
+      var tZone = offsetFromString(matchOffset, this._i);
       if (tZone != null) {
         this.utcOffset(tZone);
       } else {
@@ -3397,7 +3397,7 @@
       return this._isDSTShifted;
     }
 
-    let c = {},
+    var c = {},
       other;
 
     copyConfig(c, this);
@@ -3427,7 +3427,7 @@
   }
 
   // ASP.NET json date format regex
-  let aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/,
+  var aspNetRegex = /^(-|\+)?(?:(\d*)[. ])?(\d+):(\d+)(?::(\d+)(\.\d*)?)?$/,
     // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
     // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
     // and further modified to allow for strings containing both week and day
@@ -3435,7 +3435,7 @@
       /^(-|\+)?P(?:([-+]?[0-9,.]*)Y)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)W)?(?:([-+]?[0-9,.]*)D)?(?:T(?:([-+]?[0-9,.]*)H)?(?:([-+]?[0-9,.]*)M)?(?:([-+]?[0-9,.]*)S)?)?$/;
 
   function createDuration(input, key) {
-    let duration = input,
+    var duration = input,
       // matching against regexp is expensive, do it on demand
       match = null,
       sign,
@@ -3513,13 +3513,13 @@
     // We'd normally use ~~inp for this, but unfortunately it also
     // converts floats to ints.
     // inp may be undefined, so careful calling replace on it.
-    let res = inp && parseFloat(inp.replace(",", "."));
+    var res = inp && parseFloat(inp.replace(",", "."));
     // apply sign while we're at it
     return (isNaN(res) ? 0 : res) * sign;
   }
 
   function positiveMomentsDifference(base, other) {
-    let res = {};
+    var res = {};
 
     res.months =
       other.month() - base.month() + (other.year() - base.year()) * 12;
@@ -3533,7 +3533,7 @@
   }
 
   function momentsDifference(base, other) {
-    let res;
+    var res;
     if (!(base.isValid() && other.isValid())) {
       return { milliseconds: 0, months: 0 };
     }
@@ -3553,7 +3553,7 @@
   // TODO: remove 'name' arg after deprecation is removed
   function createAdder(direction, name) {
     return function (val, period) {
-      let dur, tmp;
+      var dur, tmp;
       //invert the arguments, but complain about it
       if (period !== null && !isNaN(+period)) {
         deprecateSimple(
@@ -3577,7 +3577,7 @@
   }
 
   function addSubtract(mom, duration, isAdding, updateOffset) {
-    let milliseconds = duration._milliseconds,
+    var milliseconds = duration._milliseconds,
       days = absRound(duration._days),
       months = absRound(duration._months);
 
@@ -3602,7 +3602,7 @@
     }
   }
 
-  let add = createAdder(1, "add"),
+  var add = createAdder(1, "add"),
     subtract = createAdder(-1, "subtract");
 
   function isString(input) {
@@ -3624,7 +3624,7 @@
   }
 
   function isMomentInputObject(input) {
-    let objectTest = isObject(input) && !isObjectEmpty(input),
+    var objectTest = isObject(input) && !isObjectEmpty(input),
       propertyTest = false,
       properties = [
         "years",
@@ -3665,7 +3665,7 @@
   }
 
   function isNumberOrStringArray(input) {
-    let arrayTest = isArray(input),
+    var arrayTest = isArray(input),
       dataTypeTest = false;
     if (arrayTest) {
       dataTypeTest =
@@ -3677,7 +3677,7 @@
   }
 
   function isCalendarSpec(input) {
-    let objectTest = isObject(input) && !isObjectEmpty(input),
+    var objectTest = isObject(input) && !isObjectEmpty(input),
       propertyTest = false,
       properties = [
         "sameDay",
@@ -3699,7 +3699,7 @@
   }
 
   function getCalendarFormat(myMoment, now) {
-    let diff = myMoment.diff(now, "days", true);
+    var diff = myMoment.diff(now, "days", true);
     return diff < -6
       ? "sameElse"
       : diff < -1
@@ -3731,7 +3731,7 @@
     }
     // We want to compare the start of today, vs this.
     // Getting start-of-today depends on whether we're local/utc/offset or not.
-    let now = time || createLocal(),
+    var now = time || createLocal(),
       sod = cloneWithOffset(now, this).startOf("day"),
       format = hooks.calendarFormat(this, sod) || "sameElse",
       output =
@@ -3750,7 +3750,7 @@
   }
 
   function isAfter(input, units) {
-    let localInput = isMoment(input) ? input : createLocal(input);
+    var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
       return false;
     }
@@ -3763,7 +3763,7 @@
   }
 
   function isBefore(input, units) {
-    let localInput = isMoment(input) ? input : createLocal(input);
+    var localInput = isMoment(input) ? input : createLocal(input);
     if (!(this.isValid() && localInput.isValid())) {
       return false;
     }
@@ -3776,7 +3776,7 @@
   }
 
   function isBetween(from, to, units, inclusivity) {
-    let localFrom = isMoment(from) ? from : createLocal(from),
+    var localFrom = isMoment(from) ? from : createLocal(from),
       localTo = isMoment(to) ? to : createLocal(to);
     if (!(this.isValid() && localFrom.isValid() && localTo.isValid())) {
       return false;
@@ -3793,7 +3793,7 @@
   }
 
   function isSame(input, units) {
-    let localInput = isMoment(input) ? input : createLocal(input),
+    var localInput = isMoment(input) ? input : createLocal(input),
       inputMs;
     if (!(this.isValid() && localInput.isValid())) {
       return false;
@@ -3819,7 +3819,7 @@
   }
 
   function diff(input, units, asFloat) {
-    let that, zoneDelta, output;
+    var that, zoneDelta, output;
 
     if (!this.isValid()) {
       return NaN;
@@ -3874,7 +3874,7 @@
       return -monthDiff(b, a);
     }
     // difference in months
-    let wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()),
+    var wholeMonthDiff = (b.year() - a.year()) * 12 + (b.month() - a.month()),
       // b is in (anchor - 1 month, anchor + 1 month)
       anchor = a.clone().add(wholeMonthDiff, "months"),
       anchor2,
@@ -3905,7 +3905,7 @@
     if (!this.isValid()) {
       return null;
     }
-    let utc = keepOffset !== true,
+    var utc = keepOffset !== true,
       m = utc ? this.clone().utc() : this;
     if (m.year() < 0 || m.year() > 9999) {
       return formatMoment(
@@ -3939,7 +3939,7 @@
     if (!this.isValid()) {
       return "moment.invalid(/* " + this._i + " */)";
     }
-    let func = "moment",
+    var func = "moment",
       zone = "",
       prefix,
       year,
@@ -3961,7 +3961,7 @@
     if (!inputString) {
       inputString = this.isUtc() ? hooks.defaultFormatUtc : hooks.defaultFormat;
     }
-    let output = formatMoment(this, inputString);
+    var output = formatMoment(this, inputString);
     return this.localeData().postformat(output);
   }
 
@@ -4003,7 +4003,7 @@
   // instance.  Otherwise, it will return the locale configuration
   // variables for this instance.
   function locale(key) {
-    let newLocaleData;
+    var newLocaleData;
 
     if (key === undefined) {
       return this._locale._abbr;
@@ -4016,7 +4016,7 @@
     }
   }
 
-  let lang = deprecate(
+  var lang = deprecate(
     "moment().lang() is deprecated. Instead, use moment().localeData() to get the language configuration. Use moment().locale() to change languages.",
     function (key) {
       if (key === undefined) {
@@ -4031,7 +4031,7 @@
     return this._locale;
   }
 
-  let MS_PER_SECOND = 1000,
+  var MS_PER_SECOND = 1000,
     MS_PER_MINUTE = 60 * MS_PER_SECOND,
     MS_PER_HOUR = 60 * MS_PER_MINUTE,
     MS_PER_400_YEARS = (365 * 400 + 97) * 24 * MS_PER_HOUR;
@@ -4062,7 +4062,7 @@
   }
 
   function startOf(units) {
-    let time, startOfDate;
+    var time, startOfDate;
     units = normalizeUnits(units);
     if (units === undefined || units === "millisecond" || !this.isValid()) {
       return this;
@@ -4121,7 +4121,7 @@
   }
 
   function endOf(units) {
-    let time, startOfDate;
+    var time, startOfDate;
     units = normalizeUnits(units);
     if (units === undefined || units === "millisecond" || !this.isValid()) {
       return this;
@@ -4199,7 +4199,7 @@
   }
 
   function toArray() {
-    let m = this;
+    var m = this;
     return [
       m.year(),
       m.month(),
@@ -4212,7 +4212,7 @@
   }
 
   function toObject() {
-    let m = this;
+    var m = this;
     return {
       years: m.year(),
       months: m.month(),
@@ -4271,7 +4271,7 @@
   addParseToken(
     ["N", "NN", "NNN", "NNNN", "NNNNN"],
     function (input, array, config, token) {
-      let era = config._locale.erasParse(input, token, config._strict);
+      var era = config._locale.erasParse(input, token, config._strict);
       if (era) {
         getParsingFlags(config).era = era;
       } else {
@@ -4288,7 +4288,7 @@
 
   addParseToken(["y", "yy", "yyy", "yyyy"], YEAR);
   addParseToken(["yo"], function (input, array, config, token) {
-    let match;
+    var match;
     if (config._locale._eraYearOrdinalRegex) {
       match = input.match(config._locale._eraYearOrdinalRegex);
     }
@@ -4301,7 +4301,7 @@
   });
 
   function localeEras(m, format) {
-    let i,
+    var i,
       l,
       date,
       eras = this._eras || getLocale("en")._eras;
@@ -4329,7 +4329,7 @@
   }
 
   function localeErasParse(eraName, format, strict) {
-    let i,
+    var i,
       l,
       eras = this.eras(),
       name,
@@ -4371,7 +4371,7 @@
   }
 
   function localeErasConvertYear(era, year) {
-    let dir = era.since <= era.until ? +1 : -1;
+    var dir = era.since <= era.until ? +1 : -1;
     if (year === undefined) {
       return hooks(era.since).year();
     } else {
@@ -4380,7 +4380,7 @@
   }
 
   function getEraName() {
-    let i,
+    var i,
       l,
       val,
       eras = this.localeData().eras();
@@ -4400,7 +4400,7 @@
   }
 
   function getEraNarrow() {
-    let i,
+    var i,
       l,
       val,
       eras = this.localeData().eras();
@@ -4420,7 +4420,7 @@
   }
 
   function getEraAbbr() {
-    let i,
+    var i,
       l,
       val,
       eras = this.localeData().eras();
@@ -4440,7 +4440,7 @@
   }
 
   function getEraYear() {
-    let i,
+    var i,
       l,
       dir,
       val,
@@ -4502,7 +4502,7 @@
   }
 
   function computeErasParse() {
-    let abbrPieces = [],
+    var abbrPieces = [],
       namePieces = [],
       narrowPieces = [],
       mixedPieces = [],
@@ -4613,17 +4613,17 @@
   }
 
   function getWeeksInYear() {
-    let weekInfo = this.localeData()._week;
+    var weekInfo = this.localeData()._week;
     return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
   }
 
   function getWeeksInWeekYear() {
-    let weekInfo = this.localeData()._week;
+    var weekInfo = this.localeData()._week;
     return weeksInYear(this.weekYear(), weekInfo.dow, weekInfo.doy);
   }
 
   function getSetWeekYearHelper(input, week, weekday, dow, doy) {
-    let weeksTarget;
+    var weeksTarget;
     if (input == null) {
       return weekOfYear(this, dow, doy).year;
     } else {
@@ -4636,7 +4636,7 @@
   }
 
   function setWeekAll(weekYear, week, weekday, dow, doy) {
-    let dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
+    var dayOfYearData = dayOfYearFromWeeks(weekYear, week, weekday, dow, doy),
       date = createUTCDate(dayOfYearData.year, 0, dayOfYearData.dayOfYear);
 
     this.year(date.getUTCFullYear());
@@ -4701,7 +4701,7 @@
 
   // MOMENTS
 
-  let getSetDayOfMonth = makeGetSet("Date", true);
+  var getSetDayOfMonth = makeGetSet("Date", true);
 
   // FORMATTING
 
@@ -4727,7 +4727,7 @@
   // MOMENTS
 
   function getSetDayOfYear(input) {
-    let dayOfYear =
+    var dayOfYear =
       Math.round(
         (this.clone().startOf("day") - this.clone().startOf("year")) / 864e5
       ) + 1;
@@ -4754,7 +4754,7 @@
 
   // MOMENTS
 
-  let getSetMinute = makeGetSet("Minutes", false);
+  var getSetMinute = makeGetSet("Minutes", false);
 
   // FORMATTING
 
@@ -4776,7 +4776,7 @@
 
   // MOMENTS
 
-  let getSetSecond = makeGetSet("Seconds", false);
+  var getSetSecond = makeGetSet("Seconds", false);
 
   // FORMATTING
 
@@ -4822,7 +4822,7 @@
   addRegexToken("SS", match1to3, match2);
   addRegexToken("SSS", match1to3, match3);
 
-  let token, getSetMillisecond;
+  var token, getSetMillisecond;
   for (token = "SSSS"; token.length <= 9; token += "S") {
     addRegexToken(token, matchUnsigned);
   }
@@ -4852,7 +4852,7 @@
     return this._isUTC ? "Coordinated Universal Time" : "";
   }
 
-  let proto = Moment.prototype;
+  var proto = Moment.prototype;
 
   proto.add = add;
   proto.calendar = calendar$1;
@@ -4968,7 +4968,7 @@
     return string;
   }
 
-  let proto$1 = Locale.prototype;
+  var proto$1 = Locale.prototype;
 
   proto$1.calendar = calendar;
   proto$1.longDateFormat = longDateFormat;
@@ -5008,7 +5008,7 @@
   proto$1.meridiem = localeMeridiem;
 
   function get$1(format, index, field, setter) {
-    let locale = getLocale(),
+    var locale = getLocale(),
       utc = createUTC().set(setter, index);
     return locale[field](utc, format);
   }
@@ -5025,7 +5025,7 @@
       return get$1(format, index, field, "month");
     }
 
-    let i,
+    var i,
       out = [];
     for (i = 0; i < 12; i++) {
       out[i] = get$1(format, i, field, "month");
@@ -5062,7 +5062,7 @@
       format = format || "";
     }
 
-    let locale = getLocale(),
+    var locale = getLocale(),
       shift = localeSorted ? locale._week.dow : 0,
       i,
       out = [];
@@ -5118,7 +5118,7 @@
     ],
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           toInt((number % 100) / 10) === 1
             ? "th"
@@ -5144,10 +5144,10 @@
     getLocale
   );
 
-  let mathAbs = Math.abs;
+  var mathAbs = Math.abs;
 
   function abs() {
-    let data = this._data;
+    var data = this._data;
 
     this._milliseconds = mathAbs(this._milliseconds);
     this._days = mathAbs(this._days);
@@ -5164,7 +5164,7 @@
   }
 
   function addSubtract$1(duration, input, value, direction) {
-    let other = createDuration(input, value);
+    var other = createDuration(input, value);
 
     duration._milliseconds += direction * other._milliseconds;
     duration._days += direction * other._days;
@@ -5192,7 +5192,7 @@
   }
 
   function bubble() {
-    let milliseconds = this._milliseconds,
+    var milliseconds = this._milliseconds,
       days = this._days,
       months = this._months,
       data = this._data,
@@ -5261,7 +5261,7 @@
     if (!this.isValid()) {
       return NaN;
     }
-    let days,
+    var days,
       months,
       milliseconds = this._milliseconds;
 
@@ -5320,7 +5320,7 @@
     };
   }
 
-  let asMilliseconds = makeAs("ms"),
+  var asMilliseconds = makeAs("ms"),
     asSeconds = makeAs("s"),
     asMinutes = makeAs("m"),
     asHours = makeAs("h"),
@@ -5345,7 +5345,7 @@
     };
   }
 
-  let milliseconds = makeGetter("milliseconds"),
+  var milliseconds = makeGetter("milliseconds"),
     seconds = makeGetter("seconds"),
     minutes = makeGetter("minutes"),
     hours = makeGetter("hours"),
@@ -5357,7 +5357,7 @@
     return absFloor(this.days() / 7);
   }
 
-  let round = Math.round,
+  var round = Math.round,
     thresholds = {
       ss: 44, // a few seconds to seconds
       s: 45, // seconds to minute
@@ -5374,7 +5374,7 @@
   }
 
   function relativeTime$1(posNegDuration, withoutSuffix, thresholds, locale) {
-    let duration = createDuration(posNegDuration).abs(),
+    var duration = createDuration(posNegDuration).abs(),
       seconds = round(duration.as("s")),
       minutes = round(duration.as("m")),
       hours = round(duration.as("h")),
@@ -5438,7 +5438,7 @@
       return this.localeData().invalidDate();
     }
 
-    let withSuffix = false,
+    var withSuffix = false,
       th = thresholds,
       locale,
       output;
@@ -5467,7 +5467,7 @@
     return locale.postformat(output);
   }
 
-  let abs$1 = Math.abs;
+  var abs$1 = Math.abs;
 
   function sign(x) {
     return (x > 0) - (x < 0) || +x;
@@ -5485,7 +5485,7 @@
       return this.localeData().invalidDate();
     }
 
-    let seconds = abs$1(this._milliseconds) / 1000,
+    var seconds = abs$1(this._milliseconds) / 1000,
       days = abs$1(this._days),
       months = abs$1(this._months),
       minutes,
@@ -5535,7 +5535,7 @@
     );
   }
 
-  let proto$2 = Duration.prototype;
+  var proto$2 = Duration.prototype;
 
   proto$2.isValid = isValid$1;
   proto$2.abs = abs;
@@ -5709,7 +5709,7 @@
 
   //! moment.js locale configuration
 
-  let pluralForm = function (n) {
+  var pluralForm = function (n) {
       return n === 0
         ? 0
         : n === 1
@@ -5774,7 +5774,7 @@
     },
     pluralize = function (u) {
       return function (number, withoutSuffix, string, isFuture) {
-        let f = pluralForm(number),
+        var f = pluralForm(number),
           str = plurals[u][pluralForm(number)];
         if (f === 2) {
           str = str[withoutSuffix ? 0 : 1];
@@ -5911,7 +5911,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap = {
+  var symbolMap = {
       1: "1",
       2: "2",
       3: "3",
@@ -5988,7 +5988,7 @@
     },
     pluralize$1 = function (u) {
       return function (number, withoutSuffix, string, isFuture) {
-        let f = pluralForm$1(number),
+        var f = pluralForm$1(number),
           str = plurals$1[u][pluralForm$1(number)];
         if (f === 2) {
           str = str[withoutSuffix ? 0 : 1];
@@ -6132,7 +6132,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$1 = {
+  var symbolMap$1 = {
       1: "١",
       2: "٢",
       3: "٣",
@@ -6288,7 +6288,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$2 = {
+  var symbolMap$2 = {
       1: "١",
       2: "٢",
       3: "٣",
@@ -6377,7 +6377,7 @@
     },
     pluralize$2 = function (u) {
       return function (number, withoutSuffix, string, isFuture) {
-        let f = pluralForm$2(number),
+        var f = pluralForm$2(number),
           str = plurals$2[u][pluralForm$2(number)];
         if (f === 2) {
           str = str[withoutSuffix ? 0 : 1];
@@ -6472,7 +6472,7 @@
 
   //! moment.js locale configuration
 
-  let suffixes = {
+  var suffixes = {
     1: "-inci",
     5: "-inci",
     8: "-inci",
@@ -6559,7 +6559,7 @@
         // special case for zero
         return number + "-ıncı";
       }
-      let a = number % 10,
+      var a = number % 10,
         b = (number % 100) - a,
         c = number >= 100 ? 100 : null;
       return number + (suffixes[a] || suffixes[b] || suffixes[c]);
@@ -6573,7 +6573,7 @@
   //! moment.js locale configuration
 
   function plural(word, num) {
-    let forms = word.split("_");
+    var forms = word.split("_");
     return num % 10 === 1 && num % 100 !== 11
       ? forms[0]
       : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)
@@ -6581,7 +6581,7 @@
       : forms[2];
   }
   function relativeTimeWithPlural(number, withoutSuffix, key) {
-    let format = {
+    var format = {
       ss: withoutSuffix ? "секунда_секунды_секунд" : "секунду_секунды_секунд",
       mm: withoutSuffix ? "хвіліна_хвіліны_хвілін" : "хвіліну_хвіліны_хвілін",
       hh: withoutSuffix ? "гадзіна_гадзіны_гадзін" : "гадзіну_гадзіны_гадзін",
@@ -6767,7 +6767,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
     ordinal: function (number) {
-      let lastDigit = number % 10,
+      var lastDigit = number % 10,
         last2Digits = number % 100;
       if (number === 0) {
         return number + "-ев";
@@ -6842,7 +6842,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$3 = {
+  var symbolMap$3 = {
       1: "১",
       2: "২",
       3: "৩",
@@ -6969,7 +6969,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$4 = {
+  var symbolMap$4 = {
       1: "১",
       2: "২",
       3: "৩",
@@ -7086,7 +7086,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$5 = {
+  var symbolMap$5 = {
       1: "༡",
       2: "༢",
       3: "༣",
@@ -7209,7 +7209,7 @@
   //! moment.js locale configuration
 
   function relativeTimeWithMutation(number, withoutSuffix, key) {
-    let format = {
+    var format = {
       mm: "munutenn",
       MM: "miz",
       dd: "devezh",
@@ -7241,7 +7241,7 @@
     return text;
   }
   function softMutation(text) {
-    let mutationTable = {
+    var mutationTable = {
       m: "v",
       b: "v",
       d: "z",
@@ -7252,7 +7252,7 @@
     return mutationTable[text.charAt(0)] + text.substring(1);
   }
 
-  let monthsParse = [
+  var monthsParse = [
       /^gen/i,
       /^c[ʼ\']hwe/i,
       /^meu/i,
@@ -7356,7 +7356,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(añ|vet)/,
     ordinal: function (number) {
-      let output = number === 1 ? "añ" : "vet";
+      var output = number === 1 ? "añ" : "vet";
       return number + output;
     },
     week: {
@@ -7375,7 +7375,7 @@
   //! moment.js locale configuration
 
   function translate(number, withoutSuffix, key) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "ss":
         if (number === 1) {
@@ -7588,7 +7588,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
     ordinal: function (number, period) {
-      let output =
+      var output =
         number === 1
           ? "r"
           : number === 2
@@ -7611,7 +7611,7 @@
 
   //! moment.js locale configuration
 
-  let months$4 = {
+  var months$4 = {
       format:
         "leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec".split(
           "_"
@@ -7645,7 +7645,7 @@
     return n > 1 && n < 5 && ~~(n / 10) !== 1;
   }
   function translate$1(number, withoutSuffix, key, isFuture) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "s": // a few seconds / in a few seconds / a few seconds ago
         return withoutSuffix || isFuture ? "pár sekund" : "pár sekundami";
@@ -7819,7 +7819,7 @@
     },
     relativeTime: {
       future: function (output) {
-        let affix = /сехет$/i.exec(output)
+        var affix = /сехет$/i.exec(output)
           ? "рен"
           : /ҫул$/i.exec(output)
           ? "тан"
@@ -7901,7 +7901,7 @@
     dayOfMonthOrdinalParse: /\d{1,2}(fed|ain|af|il|ydd|ed|eg)/,
     // traditional ordinal numbers above 31 are not commonly used in colloquial Welsh
     ordinal: function (number) {
-      let b = number,
+      var b = number,
         output = "",
         lookup = [
           "",
@@ -7997,7 +7997,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       m: ["eine Minute", "einer Minute"],
       h: ["eine Stunde", "einer Stunde"],
       d: ["ein Tag", "einem Tag"],
@@ -8069,7 +8069,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$1(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       m: ["eine Minute", "einer Minute"],
       h: ["eine Stunde", "einer Stunde"],
       d: ["ein Tag", "einem Tag"],
@@ -8141,7 +8141,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$2(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       m: ["eine Minute", "einer Minute"],
       h: ["eine Stunde", "einer Stunde"],
       d: ["ein Tag", "einem Tag"],
@@ -8212,7 +8212,7 @@
 
   //! moment.js locale configuration
 
-  let months$5 = [
+  var months$5 = [
       "ޖެނުއަރީ",
       "ފެބްރުއަރީ",
       "މާރިޗު",
@@ -8369,7 +8369,7 @@
       sameElse: "L",
     },
     calendar: function (key, mom) {
-      let output = this._calendarEl[key],
+      var output = this._calendarEl[key],
         hours = mom && mom.hours();
       if (isFunction$1(output)) {
         output = output.apply(mom);
@@ -8447,7 +8447,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8513,7 +8513,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8575,7 +8575,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8641,7 +8641,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8707,7 +8707,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8769,7 +8769,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8835,7 +8835,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8901,7 +8901,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -8985,7 +8985,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortDot =
+  var monthsShortDot =
       "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
     monthsShort$1 = "ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic".split(
       "_"
@@ -9090,7 +9090,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortDot$1 =
+  var monthsShortDot$1 =
       "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
     monthsShort$2 = "ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic".split(
       "_"
@@ -9196,7 +9196,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortDot$2 =
+  var monthsShortDot$2 =
       "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
     monthsShort$3 = "ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic".split(
       "_"
@@ -9301,7 +9301,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortDot$3 =
+  var monthsShortDot$3 =
       "ene._feb._mar._abr._may._jun._jul._ago._sep._oct._nov._dic.".split("_"),
     monthsShort$4 = "ene_feb_mar_abr_may_jun_jul_ago_sep_oct_nov_dic".split(
       "_"
@@ -9408,7 +9408,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$3(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       s: ["mõne sekundi", "mõni sekund", "paar sekundit"],
       ss: [number + "sekundi", number + "sekundit"],
       m: ["ühe minuti", "üks minut"],
@@ -9543,7 +9543,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$6 = {
+  var symbolMap$6 = {
       1: "۱",
       2: "۲",
       3: "۳",
@@ -9654,7 +9654,7 @@
 
   //! moment.js locale configuration
 
-  let numbersPast =
+  var numbersPast =
       "nolla yksi kaksi kolme neljä viisi kuusi seitsemän kahdeksan yhdeksän".split(
         " "
       ),
@@ -9671,7 +9671,7 @@
       numbersPast[9],
     ];
   function translate$2(number, withoutSuffix, key, isFuture) {
-    let result = "";
+    var result = "";
     switch (key) {
       case "s":
         return isFuture ? "muutaman sekunnin" : "muutama sekunti";
@@ -10025,7 +10025,7 @@
 
   //! moment.js locale configuration
 
-  let monthsStrictRegex$1 =
+  var monthsStrictRegex$1 =
       /^(janvier|février|mars|avril|mai|juin|juillet|août|septembre|octobre|novembre|décembre)/i,
     monthsShortStrictRegex$1 =
       /(janv\.?|févr\.?|mars|avr\.?|mai|juin|juil\.?|août|sept\.?|oct\.?|nov\.?|déc\.?)/i,
@@ -10131,7 +10131,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortWithDots =
+  var monthsShortWithDots =
       "jan._feb._mrt._apr._mai_jun._jul._aug._sep._okt._nov._des.".split("_"),
     monthsShortWithoutDots =
       "jan_feb_mrt_apr_mai_jun_jul_aug_sep_okt_nov_des".split("_");
@@ -10203,7 +10203,7 @@
 
   //! moment.js locale configuration
 
-  let months$6 = [
+  var months$6 = [
       "Eanáir",
       "Feabhra",
       "Márta",
@@ -10284,7 +10284,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(d|na|mh)/,
     ordinal: function (number) {
-      let output = number === 1 ? "d" : number % 10 === 2 ? "na" : "mh";
+      var output = number === 1 ? "d" : number % 10 === 2 ? "na" : "mh";
       return number + output;
     },
     week: {
@@ -10295,7 +10295,7 @@
 
   //! moment.js locale configuration
 
-  let months$7 = [
+  var months$7 = [
       "Am Faoilleach",
       "An Gearran",
       "Am Màrt",
@@ -10376,7 +10376,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(d|na|mh)/,
     ordinal: function (number) {
-      let output = number === 1 ? "d" : number % 10 === 2 ? "na" : "mh";
+      var output = number === 1 ? "d" : number % 10 === 2 ? "na" : "mh";
       return number + output;
     },
     week: {
@@ -10457,7 +10457,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$4(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       s: ["थोडया सॅकंडांनी", "थोडे सॅकंड"],
       ss: [number + " सॅकंडांनी", number + " सॅकंड"],
       m: ["एका मिणटान", "एक मिनूट"],
@@ -10581,7 +10581,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$5(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       s: ["thoddea sekondamni", "thodde sekond"],
       ss: [number + " sekondamni", number + " sekond"],
       m: ["eka mintan", "ek minut"],
@@ -10702,7 +10702,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$7 = {
+  var symbolMap$7 = {
       1: "૧",
       2: "૨",
       3: "૩",
@@ -10912,7 +10912,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$8 = {
+  var symbolMap$8 = {
       1: "१",
       2: "२",
       3: "३",
@@ -11079,7 +11079,7 @@
   //! moment.js locale configuration
 
   function translate$3(number, withoutSuffix, key) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "ss":
         if (number === 1) {
@@ -11230,10 +11230,10 @@
 
   //! moment.js locale configuration
 
-  let weekEndings =
+  var weekEndings =
     "vasárnap hétfőn kedden szerdán csütörtökön pénteken szombaton".split(" ");
   function translate$4(number, withoutSuffix, key, isFuture) {
-    let num = number;
+    var num = number;
     switch (key) {
       case "s":
         return isFuture || withoutSuffix
@@ -11514,7 +11514,7 @@
     return true;
   }
   function translate$5(number, withoutSuffix, key, isFuture) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "s":
         return withoutSuffix || isFuture
@@ -12101,7 +12101,7 @@
 
   //! moment.js locale configuration
 
-  let suffixes$1 = {
+  var suffixes$1 = {
     0: "-ші",
     1: "-ші",
     2: "-ші",
@@ -12169,7 +12169,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ші|шы)/,
     ordinal: function (number) {
-      let a = number % 10,
+      var a = number % 10,
         b = number >= 100 ? 100 : null;
       return number + (suffixes$1[number] || suffixes$1[a] || suffixes$1[b]);
     },
@@ -12181,7 +12181,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$9 = {
+  var symbolMap$9 = {
       1: "១",
       2: "២",
       3: "៣",
@@ -12282,7 +12282,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$a = {
+  var symbolMap$a = {
       1: "೧",
       2: "೨",
       3: "೩",
@@ -12475,7 +12475,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$b = {
+  var symbolMap$b = {
       1: "١",
       2: "٢",
       3: "٣",
@@ -12590,7 +12590,7 @@
 
   //! moment.js locale configuration
 
-  let suffixes$2 = {
+  var suffixes$2 = {
     0: "-чү",
     1: "-чи",
     2: "-чи",
@@ -12660,7 +12660,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(чи|чы|чү|чу)/,
     ordinal: function (number) {
-      let a = number % 10,
+      var a = number % 10,
         b = number >= 100 ? 100 : null;
       return number + (suffixes$2[number] || suffixes$2[a] || suffixes$2[b]);
     },
@@ -12673,7 +12673,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$6(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       m: ["eng Minutt", "enger Minutt"],
       h: ["eng Stonn", "enger Stonn"],
       d: ["een Dag", "engem Dag"],
@@ -12683,14 +12683,14 @@
     return withoutSuffix ? format[key][0] : format[key][1];
   }
   function processFutureTime(string) {
-    let number = string.substr(0, string.indexOf(" "));
+    var number = string.substr(0, string.indexOf(" "));
     if (eifelerRegelAppliesToNumber(number)) {
       return "a " + string;
     }
     return "an " + string;
   }
   function processPastTime(string) {
-    let number = string.substr(0, string.indexOf(" "));
+    var number = string.substr(0, string.indexOf(" "));
     if (eifelerRegelAppliesToNumber(number)) {
       return "viru " + string;
     }
@@ -12719,7 +12719,7 @@
       return false;
     } else if (number < 100) {
       // 2 digits
-      let lastDigit = number % 10,
+      var lastDigit = number % 10,
         firstDigit = number / 10;
       if (lastDigit === 0) {
         return eifelerRegelAppliesToNumber(firstDigit);
@@ -12868,7 +12868,7 @@
 
   //! moment.js locale configuration
 
-  let units = {
+  var units = {
     ss: "sekundė_sekundžių_sekundes",
     m: "minutė_minutės_minutę",
     mm: "minutės_minučių_minutes",
@@ -12902,7 +12902,7 @@
     return units[key].split("_");
   }
   function translate$6(number, withoutSuffix, key, isFuture) {
-    let result = number + " ";
+    var result = number + " ";
     if (number === 1) {
       return (
         result + translateSingular(number, withoutSuffix, key[0], isFuture)
@@ -12992,7 +12992,7 @@
 
   //! moment.js locale configuration
 
-  let units$1 = {
+  var units$1 = {
     ss: "sekundes_sekundēm_sekunde_sekundes".split("_"),
     m: "minūtes_minūtēm_minūte_minūtes".split("_"),
     mm: "minūtes_minūtēm_minūte_minūtes".split("_"),
@@ -13103,7 +13103,7 @@
         : wordKey[2];
     },
     translate: function (number, withoutSuffix, key) {
-      let wordKey = translator.words[key];
+      var wordKey = translator.words[key];
       if (key.length === 1) {
         return withoutSuffix ? wordKey[0] : wordKey[1];
       } else {
@@ -13157,7 +13157,7 @@
       },
       lastDay: "[juče u] LT",
       lastWeek: function () {
-        let lastWeekDays = [
+        var lastWeekDays = [
           "[prošle] [nedjelje] [u] LT",
           "[prošlog] [ponedjeljka] [u] LT",
           "[prošlog] [utorka] [u] LT",
@@ -13311,7 +13311,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ев|ен|ти|ви|ри|ми)/,
     ordinal: function (number) {
-      let lastDigit = number % 10,
+      var lastDigit = number % 10,
         last2Digits = number % 100;
       if (number === 0) {
         return number + "-ев";
@@ -13515,7 +13515,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$c = {
+  var symbolMap$c = {
       1: "१",
       2: "२",
       3: "३",
@@ -13541,7 +13541,7 @@
     };
 
   function relativeTimeMr(number, withoutSuffix, string, isFuture) {
-    let output = "";
+    var output = "";
     if (withoutSuffix) {
       switch (string) {
         case "s":
@@ -13915,7 +13915,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$d = {
+  var symbolMap$d = {
       1: "၁",
       2: "၂",
       3: "၃",
@@ -14058,7 +14058,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$e = {
+  var symbolMap$e = {
       1: "१",
       2: "२",
       3: "३",
@@ -14177,7 +14177,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortWithDots$1 =
+  var monthsShortWithDots$1 =
       "jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_"),
     monthsShortWithoutDots$1 =
       "jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec".split("_"),
@@ -14275,7 +14275,7 @@
 
   //! moment.js locale configuration
 
-  let monthsShortWithDots$2 =
+  var monthsShortWithDots$2 =
       "jan._feb._mrt._apr._mei_jun._jul._aug._sep._okt._nov._dec.".split("_"),
     monthsShortWithoutDots$2 =
       "jan_feb_mrt_apr_mei_jun_jul_aug_sep_okt_nov_dec".split("_"),
@@ -14489,7 +14489,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
     ordinal: function (number, period) {
-      let output =
+      var output =
         number === 1
           ? "r"
           : number === 2
@@ -14512,7 +14512,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$f = {
+  var symbolMap$f = {
       1: "੧",
       2: "੨",
       3: "੩",
@@ -14632,7 +14632,7 @@
 
   //! moment.js locale configuration
 
-  let monthsNominative =
+  var monthsNominative =
       "styczeń_luty_marzec_kwiecień_maj_czerwiec_lipiec_sierpień_wrzesień_październik_listopad_grudzień".split(
         "_"
       ),
@@ -14658,7 +14658,7 @@
     return n % 10 < 5 && n % 10 > 1 && ~~(n / 10) % 10 !== 1;
   }
   function translate$8(number, withoutSuffix, key) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "ss":
         return result + (plural$3(number) ? "sekundy" : "sekund");
@@ -14887,7 +14887,7 @@
   //! moment.js locale configuration
 
   function relativeTimeWithPlural$2(number, withoutSuffix, key) {
-    let format = {
+    var format = {
         ss: "secunde",
         mm: "minute",
         hh: "ore",
@@ -14957,7 +14957,7 @@
   //! moment.js locale configuration
 
   function plural$4(word, num) {
-    let forms = word.split("_");
+    var forms = word.split("_");
     return num % 10 === 1 && num % 100 !== 11
       ? forms[0]
       : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)
@@ -14965,7 +14965,7 @@
       : forms[2];
   }
   function relativeTimeWithPlural$3(number, withoutSuffix, key) {
-    let format = {
+    var format = {
       ss: withoutSuffix ? "секунда_секунды_секунд" : "секунду_секунды_секунд",
       mm: withoutSuffix ? "минута_минуты_минут" : "минуту_минуты_минут",
       hh: "час_часа_часов",
@@ -14980,7 +14980,7 @@
       return number + " " + plural$4(format[key], +number);
     }
   }
-  let monthsParse$b = [
+  var monthsParse$b = [
     /^янв/i,
     /^фев/i,
     /^мар/i,
@@ -15167,7 +15167,7 @@
 
   //! moment.js locale configuration
 
-  let months$9 = [
+  var months$9 = [
       "جنوري",
       "فيبروري",
       "مارچ",
@@ -15367,7 +15367,7 @@
 
   //! moment.js locale configuration
 
-  let months$a =
+  var months$a =
       "január_február_marec_apríl_máj_jún_júl_august_september_október_november_december".split(
         "_"
       ),
@@ -15378,7 +15378,7 @@
     return n > 1 && n < 5;
   }
   function translate$9(number, withoutSuffix, key, isFuture) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "s": // a few seconds / in a few seconds / a few seconds ago
         return withoutSuffix || isFuture ? "pár sekúnd" : "pár sekundami";
@@ -15511,7 +15511,7 @@
   //! moment.js locale configuration
 
   function processRelativeTime$7(number, withoutSuffix, key, isFuture) {
-    let result = number + " ";
+    var result = number + " ";
     switch (key) {
       case "s":
         return withoutSuffix || isFuture ? "nekaj sekund" : "nekaj sekundami";
@@ -15762,7 +15762,7 @@
       return wordKey[2];
     },
     translate: function (number, withoutSuffix, key, isFuture) {
-      let wordKey = translator$1.words[key],
+      var wordKey = translator$1.words[key],
         word;
 
       if (key.length === 1) {
@@ -15821,7 +15821,7 @@
       },
       lastDay: "[јуче у] LT",
       lastWeek: function () {
-        let lastWeekDays = [
+        var lastWeekDays = [
           "[прошле] [недеље] [у] LT",
           "[прошлог] [понедељка] [у] LT",
           "[прошлог] [уторка] [у] LT",
@@ -15886,7 +15886,7 @@
       return wordKey[2];
     },
     translate: function (number, withoutSuffix, key, isFuture) {
-      let wordKey = translator$2.words[key],
+      var wordKey = translator$2.words[key],
         word;
 
       if (key.length === 1) {
@@ -15947,7 +15947,7 @@
       },
       lastDay: "[juče u] LT",
       lastWeek: function () {
-        let lastWeekDays = [
+        var lastWeekDays = [
           "[prošle] [nedelje] [u] LT",
           "[prošlog] [ponedeljka] [u] LT",
           "[prošlog] [utorka] [u] LT",
@@ -16113,7 +16113,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(\:e|\:a)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? ":e"
@@ -16185,7 +16185,7 @@
 
   //! moment.js locale configuration
 
-  let symbolMap$g = {
+  var symbolMap$g = {
       1: "௧",
       2: "௨",
       3: "௩",
@@ -16441,7 +16441,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(st|nd|rd|th)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -16462,7 +16462,7 @@
 
   //! moment.js locale configuration
 
-  let suffixes$3 = {
+  var suffixes$3 = {
     0: "-ум",
     1: "-ум",
     2: "-юм",
@@ -16565,7 +16565,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}-(ум|юм)/,
     ordinal: function (number) {
-      let a = number % 10,
+      var a = number % 10,
         b = number >= 100 ? 100 : null;
       return number + (suffixes$3[number] || suffixes$3[a] || suffixes$3[b]);
     },
@@ -16640,7 +16640,7 @@
 
   //! moment.js locale configuration
 
-  let suffixes$4 = {
+  var suffixes$4 = {
     1: "'inji",
     5: "'inji",
     8: "'inji",
@@ -16784,12 +16784,12 @@
 
   //! moment.js locale configuration
 
-  let numbersNouns = "pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut".split(
+  var numbersNouns = "pagh_wa’_cha’_wej_loS_vagh_jav_Soch_chorgh_Hut".split(
     "_"
   );
 
   function translateFuture(output) {
-    let time = output;
+    var time = output;
     time =
       output.indexOf("jaj") !== -1
         ? time.slice(0, -3) + "leS"
@@ -16802,7 +16802,7 @@
   }
 
   function translatePast(output) {
-    let time = output;
+    var time = output;
     time =
       output.indexOf("jaj") !== -1
         ? time.slice(0, -3) + "Hu’"
@@ -16815,7 +16815,7 @@
   }
 
   function translate$a(number, withoutSuffix, string, isFuture) {
-    let numberNoun = numberAsNoun(number);
+    var numberNoun = numberAsNoun(number);
     switch (string) {
       case "ss":
         return numberNoun + " lup";
@@ -16833,7 +16833,7 @@
   }
 
   function numberAsNoun(number) {
-    let hundred = Math.floor((number % 1000) / 100),
+    var hundred = Math.floor((number % 1000) / 100),
       ten = Math.floor((number % 100) / 10),
       one = number % 10,
       word = "";
@@ -16908,7 +16908,7 @@
 
   //! moment.js locale configuration
 
-  let suffixes$5 = {
+  var suffixes$5 = {
     1: "'inci",
     5: "'inci",
     8: "'inci",
@@ -17074,7 +17074,7 @@
   });
 
   function processRelativeTime$8(number, withoutSuffix, key, isFuture) {
-    let format = {
+    var format = {
       s: ["viensas secunds", "'iensas secunds"],
       ss: [number + " secunds", "" + number + " secunds"],
       m: ["'n míut", "'iens míut"],
@@ -17241,7 +17241,7 @@
       }
     },
     meridiem: function (hour, minute, isLower) {
-      let hm = hour * 100 + minute;
+      var hm = hour * 100 + minute;
       if (hm < 600) {
         return "يېرىم كېچە";
       } else if (hm < 900) {
@@ -17311,7 +17311,7 @@
   //! moment.js locale configuration
 
   function plural$6(word, num) {
-    let forms = word.split("_");
+    var forms = word.split("_");
     return num % 10 === 1 && num % 100 !== 11
       ? forms[0]
       : num % 10 >= 2 && num % 10 <= 4 && (num % 100 < 10 || num % 100 >= 20)
@@ -17319,7 +17319,7 @@
       : forms[2];
   }
   function relativeTimeWithPlural$4(number, withoutSuffix, key) {
-    let format = {
+    var format = {
       ss: withoutSuffix ? "секунда_секунди_секунд" : "секунду_секунди_секунд",
       mm: withoutSuffix ? "хвилина_хвилини_хвилин" : "хвилину_хвилини_хвилин",
       hh: withoutSuffix ? "година_години_годин" : "годину_години_годин",
@@ -17336,7 +17336,7 @@
     }
   }
   function weekdaysCaseReplace(m, format) {
-    let weekdays = {
+    var weekdays = {
         nominative:
           "неділя_понеділок_вівторок_середа_четвер_п’ятниця_субота".split("_"),
         accusative:
@@ -17470,7 +17470,7 @@
 
   //! moment.js locale configuration
 
-  let months$b = [
+  var months$b = [
       "جنوری",
       "فروری",
       "مارچ",
@@ -17772,7 +17772,7 @@
     },
     dayOfMonthOrdinalParse: /\d{1,2}(th|st|nd|rd)/,
     ordinal: function (number) {
-      let b = number % 10,
+      var b = number % 10,
         output =
           ~~((number % 100) / 10) === 1
             ? "th"
@@ -17882,7 +17882,7 @@
       }
     },
     meridiem: function (hour, minute, isLower) {
-      let hm = hour * 100 + minute;
+      var hm = hour * 100 + minute;
       if (hm < 600) {
         return "凌晨";
       } else if (hm < 900) {
@@ -17997,7 +17997,7 @@
       }
     },
     meridiem: function (hour, minute, isLower) {
-      let hm = hour * 100 + minute;
+      var hm = hour * 100 + minute;
       if (hm < 600) {
         return "凌晨";
       } else if (hm < 900) {
@@ -18093,7 +18093,7 @@
       }
     },
     meridiem: function (hour, minute, isLower) {
-      let hm = hour * 100 + minute;
+      var hm = hour * 100 + minute;
       if (hm < 600) {
         return "凌晨";
       } else if (hm < 900) {
@@ -18189,7 +18189,7 @@
       }
     },
     meridiem: function (hour, minute, isLower) {
-      let hm = hour * 100 + minute;
+      var hm = hour * 100 + minute;
       if (hm < 600) {
         return "凌晨";
       } else if (hm < 900) {

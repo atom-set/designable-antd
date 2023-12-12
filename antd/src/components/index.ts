@@ -21,6 +21,7 @@ export * from "./Space";
 export * from "./Object";
 export * from "./ArrayCards";
 export * from "./ArrayTable";
+export * from "./ArrayCollapse";
 export * from "./FormTab";
 export * from "./FormCollapse";
 export * from "./FormGrid";
