@@ -2,7 +2,6 @@ import React from "react";
 import { createBehavior, createResource } from "@designable/core";
 import { DnFC } from "@designable/react";
 import { createVoidFieldSchema } from "../Field";
-import { AllSchemas } from "../../schemas";
 import cls from "classnames";
 
 export interface IDesignableCustomComponentProps {
@@ -33,11 +32,34 @@ CustomComponent.Behavior = createBehavior({
   extends: ["Field"],
   selector: (node) => node.props["x-component"] === "CustomComponent",
   designerProps: {
-    propsSchema: createVoidFieldSchema(AllSchemas.Text),
+    propsSchema: createVoidFieldSchema({
+      type: "object",
+      properties: {
+        content: {
+          type: "string",
+          "x-decorator": "FormItem",
+          "x-component": "Input.TextArea",
+        },
+        mode: {
+          type: "string",
+          "x-decorator": "FormItem",
+          "x-component": "Select",
+          "x-component-props": {
+            defaultValue: "normal",
+          },
+          enum: ["h1", "h2", "h3", "p", "normal"],
+        },
+        width: {
+          type: "string",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+        },
+      },
+    }),
   },
   designerLocales: {
     "zh-CN": {
-      title: "文1本",
+      title: "自定义文本",
       settings: {
         "x-component-props": {
           content: "文本内容",
@@ -45,6 +67,7 @@ CustomComponent.Behavior = createBehavior({
             title: "文本类型",
             dataSource: ["H1", "H2", "H3", "Paragraph", "Normal"],
           },
+          width: "长度",
         },
       },
     },
@@ -57,6 +80,7 @@ CustomComponent.Behavior = createBehavior({
             title: "Text Mode",
             dataSource: ["H1", "H2", "H3", "Paragraph", "Normal"],
           },
+          width: "长度",
         },
       },
     },
@@ -69,6 +93,7 @@ CustomComponent.Behavior = createBehavior({
             title: "텍스트 모드",
             dataSource: ["H1", "H2", "H3", "Paragraph", "Normal"],
           },
+          width: "长度",
         },
       },
     },
