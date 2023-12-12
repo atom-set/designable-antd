@@ -1,7 +1,7 @@
 import { createLocales } from "@designable/core";
 import { Card } from "./Card";
 
-export const ArrayCollapse = createLocales(Card, {
+export const ArrayCollapse2 = createLocales(Card, {
   "zh-CN": {
     title: "折叠面板",
     addIndex: "添加索引",

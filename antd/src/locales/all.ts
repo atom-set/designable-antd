@@ -24,7 +24,7 @@ export * from "./Card";
 export * from "./ArrayBase";
 export * from "./ArrayCards";
 export * from "./ArrayTable";
-export * from "./ArrayCollapse";
+export * from "./ArrayCollapse2";
 export * from "./Void";
 export * from "./Space";
 export * from "./FormTab";

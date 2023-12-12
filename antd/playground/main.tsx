@@ -59,7 +59,7 @@ import {
   ArrayCards,
   ObjectContainer,
   ArrayTable,
-  ArrayCollapse,
+  ArrayCollapse2,
   Space,
   FormTab,
   FormCollapse,
@@ -155,7 +155,7 @@ const App = () => {
             />
             <ResourceWidget
               title="sources.Arrays"
-              sources={[ArrayCards, ArrayTable, ArrayCollapse]}
+              sources={[ArrayCards, ArrayTable, ArrayCollapse2]}
             />
             <ResourceWidget
               title="sources.Displays"
@@ -204,7 +204,7 @@ const App = () => {
                       Card,
                       ArrayCards,
                       ArrayTable,
-                      ArrayCollapse,
+                      ArrayCollapse2,
                       Space,
                       FormTab,
                       FormCollapse,
