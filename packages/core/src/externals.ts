@@ -47,6 +47,10 @@ export const createLocales = (...packages: IDesignerLocales[]) => {
 export const createBehavior = (
   ...behaviors: Array<IBehaviorCreator | IBehaviorCreator[]>
 ): IBehavior[] => {
+  if (behaviors[0] && (behaviors[0] as any)?.name === "ArrayCollapse") {
+    // eslint-disable-next-line no-console
+    console.log("behaviors:", ...behaviors);
+  }
   return behaviors.reduce((buf: any[], behavior) => {
     if (isArr(behavior)) return buf.concat(createBehavior(...behavior));
     const { selector } = behavior || {};
@@ -54,6 +58,11 @@ export const createBehavior = (
     if (typeof selector === "string") {
       behavior.selector = (node) => node.componentName === selector;
     }
+    if (behaviors[0] && (behaviors[0] as any)?.name === "ArrayCollapse") {
+      // eslint-disable-next-line no-console
+      console.log(...buf.concat(behavior));
+    }
+
     return buf.concat(behavior);
   }, []);
 };

@@ -28,7 +28,7 @@ export const CustomComponent: DnFC<IDesignableCustomComponentProps> = (
 };
 
 CustomComponent.Behavior = createBehavior({
-  name: "Text",
+  name: "CustomComponent",
   extends: ["Field"],
   selector: (node) => node.props["x-component"] === "CustomComponent",
   designerProps: {

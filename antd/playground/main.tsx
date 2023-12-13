@@ -121,9 +121,10 @@ const App = () => {
       <StudioPanel logo={<LogoWidget />} actions={<ActionsWidget />}>
         <CompositePanel>
           <CompositePanel.Item title="panels.Component" icon="Component">
-            <ResourceWidget
+            {/* <ResourceWidget
               title="sources.Inputs"
               sources={[
+                CustomComponent,
                 Input,
                 Password,
                 NumberPicker,
@@ -156,10 +157,10 @@ const App = () => {
             <ResourceWidget
               title="sources.Arrays"
               sources={[ArrayCards, ArrayTable, ArrayCollapse2]}
-            />
+            /> */}
             <ResourceWidget
               title="sources.Displays"
-              sources={[CustomComponent, Text]}
+              sources={[ArrayCollapse2]}
             />
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">

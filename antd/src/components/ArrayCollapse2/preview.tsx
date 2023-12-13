@@ -1,32 +1,58 @@
 import React from "react";
 import { createBehavior, createResource } from "@designable/core";
-import { createFieldSchema } from "../Field";
-import { AllSchemas } from "../../schemas";
-import { AllLocales } from "../../locales";
+import { createVoidFieldSchema } from "../Field";
 import { Collapse } from "antd";
 import cls from "classnames";
 
 export const ArrayCollapse2 = (props) => {
+  const header = props.header ?? "";
   return (
     <Collapse
       {...props}
       className={cls("formily-array-collapse-item", props.className)}
     >
-      <Collapse.Panel {...props} forceRender key={0} header={"121212"}>
-        hello world
+      <Collapse.Panel {...props} forceRender key={0} header={header}>
+        {props.content}
       </Collapse.Panel>
     </Collapse>
   );
 };
 
 ArrayCollapse2.Behavior = createBehavior({
-  name: "ArrayCollapse2",
+  name: "ArrayCollapse",
   extends: ["Field"],
   selector: (node) => node.props["x-component"] === "ArrayCollapse2",
   designerProps: {
-    propsSchema: createFieldSchema(AllSchemas.ArrayCollapse2),
+    propsSchema: createVoidFieldSchema({
+      name: "ArrayCollapse",
+      type: "object",
+      properties: {
+        header: {
+          type: "string",
+          "x-decorator": "FormItem",
+          "x-component": "Input",
+        },
+      },
+    }),
   },
-  designerLocales: AllLocales.ArrayCollapse2,
+  designerLocales: {
+    "zh-CN": {
+      title: "自定义文本",
+      settings: {
+        "x-component-props": {
+          header: "标题",
+        },
+      },
+    },
+    "en-US": {
+      title: "Text",
+      settings: {
+        "x-component-props": {
+          header: "header",
+        },
+      },
+    },
+  },
 });
 
 ArrayCollapse2.Resource = createResource({
@@ -35,7 +61,7 @@ ArrayCollapse2.Resource = createResource({
     {
       componentName: "Field",
       props: {
-        type: "array",
+        type: "string",
         "x-component": "ArrayCollapse2",
       },
     },
