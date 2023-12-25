@@ -121,7 +121,7 @@ const App = () => {
       <StudioPanel logo={<LogoWidget />} actions={<ActionsWidget />}>
         <CompositePanel>
           <CompositePanel.Item title="panels.Component" icon="Component">
-            {/* <ResourceWidget
+            <ResourceWidget
               title="sources.Inputs"
               sources={[
                 CustomComponent,
@@ -157,7 +157,7 @@ const App = () => {
             <ResourceWidget
               title="sources.Arrays"
               sources={[ArrayCards, ArrayTable, ArrayCollapse2]}
-            /> */}
+            />
             <ResourceWidget
               title="sources.Displays"
               sources={[ArrayCollapse2]}
