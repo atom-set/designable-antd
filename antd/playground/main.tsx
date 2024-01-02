@@ -124,7 +124,6 @@ const App = () => {
             <ResourceWidget
               title="sources.Inputs"
               sources={[
-                CustomComponent,
                 Input,
                 Password,
                 NumberPicker,
@@ -156,7 +155,7 @@ const App = () => {
             />
             <ResourceWidget
               title="sources.Arrays"
-              sources={[ArrayCards, ArrayTable, ArrayCollapse2]}
+              sources={[ArrayCards, ArrayTable]}
             />
             <ResourceWidget
               title="sources.Displays"
