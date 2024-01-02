@@ -59,11 +59,13 @@ import {
   ArrayCards,
   ObjectContainer,
   ArrayTable,
+  ArrayCollapse2,
   Space,
   FormTab,
   FormCollapse,
   FormLayout,
   FormGrid,
+  CustomComponent,
 } from "../src";
 
 setNpmCDNRegistry("//unpkg.com");
@@ -122,6 +124,7 @@ const App = () => {
             <ResourceWidget
               title="sources.Inputs"
               sources={[
+                CustomComponent,
                 Input,
                 Password,
                 NumberPicker,
@@ -153,9 +156,12 @@ const App = () => {
             />
             <ResourceWidget
               title="sources.Arrays"
-              sources={[ArrayCards, ArrayTable]}
+              sources={[ArrayCards, ArrayTable, ArrayCollapse2]}
             />
-            <ResourceWidget title="sources.Displays" sources={[Text]} />
+            <ResourceWidget
+              title="sources.Displays"
+              sources={[ArrayCollapse2]}
+            />
           </CompositePanel.Item>
           <CompositePanel.Item title="panels.OutlinedTree" icon="Outline">
             <OutlineTreeWidget />
@@ -195,9 +201,11 @@ const App = () => {
                       Upload,
                       Switch,
                       Text,
+                      CustomComponent,
                       Card,
                       ArrayCards,
                       ArrayTable,
+                      ArrayCollapse2,
                       Space,
                       FormTab,
                       FormCollapse,

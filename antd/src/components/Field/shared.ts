@@ -11,7 +11,7 @@ export const createComponentSchema = (
   component: ISchema,
   decorator: ISchema
 ) => {
-  return {
+  const componentSchema = {
     "component-group": component && {
       type: "void",
       "x-component": "CollapseItem",
@@ -72,6 +72,11 @@ export const createComponentSchema = (
       },
     },
   };
+  if (component?.name === "ArrayCollapse") {
+    console.log("component:", component);
+    console.log("componentSchema:", componentSchema);
+  }
+  return componentSchema;
 };
 
 export const createFieldSchema = (

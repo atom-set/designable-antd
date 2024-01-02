@@ -83,6 +83,7 @@ export const ArrayCards: DnFC<CardProps> = observer((props) => {
     });
     return [objectNode, additionNode];
   });
+
   const renderCard = () => {
     if (node.children.length === 0) return <DroppableWidget />;
     const additions = queryNodesByComponentPath(node, [
@@ -174,7 +175,6 @@ export const ArrayCards: DnFC<CardProps> = observer((props) => {
               ensureObjectItemsNode(node).append(indexNode);
             },
           },
-
           {
             title: node.getMessage("addOperation"),
             icon: "AddOperation",
