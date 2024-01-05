@@ -66,6 +66,8 @@ export class DragDropDriver extends EventDriver<Engine> {
       e.clientY === GlobalState.moveEvent?.clientY
     )
       return;
+
+    console.log("onMouseMove");
     this.dispatch(
       new DragMoveEvent({
         clientX: e.clientX,
@@ -85,6 +87,7 @@ export class DragDropDriver extends EventDriver<Engine> {
 
   onStartDrag = (e: MouseEvent | DragEvent) => {
     if (GlobalState.dragging) return;
+    console.log("onStartDrag：");
     GlobalState.startEvent = GlobalState.startEvent || e;
     this.batchAddEventListener("dragover", this.onMouseMove);
     this.batchAddEventListener("mousemove", this.onMouseMove);
@@ -103,10 +106,13 @@ export class DragDropDriver extends EventDriver<Engine> {
         view: GlobalState.startEvent.view,
       })
     );
+
+    console.log("onStartDrag GlobalState:", GlobalState);
     GlobalState.dragging = true;
   };
 
   onDistanceChange = (e: MouseEvent) => {
+    console.log("onDistanceChange");
     const distance = Math.sqrt(
       Math.pow(e.pageX - GlobalState.startEvent.pageX, 2) +
         Math.pow(e.pageY - GlobalState.startEvent.pageY, 2)
@@ -114,6 +120,7 @@ export class DragDropDriver extends EventDriver<Engine> {
     const timeDelta = Date.now() - GlobalState.onMouseDownAt;
     if (timeDelta > 10 && e !== GlobalState.startEvent && distance > 4) {
       this.batchRemoveEventListener("mousemove", this.onDistanceChange);
+      console.log("onDistanceChange:", e);
       this.onStartDrag(e);
     }
   };

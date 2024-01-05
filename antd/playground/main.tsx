@@ -116,6 +116,9 @@ const App = () => {
       }),
     []
   );
+
+  console.log("engine:", engine);
+  debugger;
   return (
     <Designer engine={engine}>
       <StudioPanel logo={<LogoWidget />} actions={<ActionsWidget />}>
@@ -215,7 +218,7 @@ const App = () => {
                   />
                 )}
               </ViewPanel>
-              <ViewPanel type="JSONTREE" scrollable={false}>
+              {/* <ViewPanel type="JSONTREE" scrollable={false}>
                 {(tree, onChange) => (
                   <SchemaEditorWidget tree={tree} onChange={onChange} />
                 )}
@@ -225,7 +228,7 @@ const App = () => {
               </ViewPanel>
               <ViewPanel type="PREVIEW">
                 {(tree) => <PreviewWidget tree={tree} />}
-              </ViewPanel>
+              </ViewPanel> */}
             </ViewportPanel>
           </WorkspacePanel>
         </Workspace>

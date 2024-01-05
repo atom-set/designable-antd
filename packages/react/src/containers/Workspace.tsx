@@ -30,6 +30,8 @@ export const Workspace: React.FC<IWorkspaceProps> = ({
     oldId.current = workspace.id;
     return workspace;
   }, [id, designer]);
+
+  debugger;
   return (
     <Fragment>
       <WorkspaceContext.Provider value={workspace}>

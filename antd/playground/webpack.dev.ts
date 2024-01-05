@@ -29,6 +29,9 @@ for (const key in baseConfig.entry) {
 
 export default {
   ...baseConfig,
+  optimization: {
+    minimize: false,
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",

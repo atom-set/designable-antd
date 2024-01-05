@@ -24,12 +24,14 @@ export class Subscribable<ExtendsType = any> {
         }
       }
     }
+    console.log("interrupted:", interrupted);
     return interrupted ? false : true;
   }
 
   subscribe(subscriber: ISubscriber) {
     let id: number;
     if (isFn(subscriber)) {
+      debugger;
       id = this.subscribers.index + 1;
       this.subscribers[id] = subscriber;
       this.subscribers.index++;

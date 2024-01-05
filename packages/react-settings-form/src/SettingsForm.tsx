@@ -20,6 +20,8 @@ import { Empty } from "antd";
 import cls from "classnames";
 import "./styles.less";
 
+debugger;
+
 const GlobalState = {
   idleRequest: null,
 };

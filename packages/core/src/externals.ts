@@ -84,6 +84,7 @@ export const createDesigner = (props: IEngineProps<Engine> = {}) => {
   const drivers = props.drivers || [];
   const effects = props.effects || [];
   const shortcuts = props.shortcuts || [];
+  debugger;
   return untracked(
     () =>
       new Engine({

@@ -15,6 +15,7 @@ export interface IViewPanelProps {
   dragTipsDirection?: "left" | "right";
 }
 
+debugger;
 export const ViewPanel: React.FC<IViewPanelProps> = observer((props) => {
   const [visible, setVisible] = useState(true);
   const workbench = useWorkbench();

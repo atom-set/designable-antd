@@ -119,6 +119,7 @@ export class EventDriver<Engine extends Event = Event, Context = any>
   }
 
   dispatch<T extends ICustomEvent<any> = any>(event: T) {
+    console.log("dispatch:", event, this.context);
     return this.engine.dispatch(event, this.context);
   }
 

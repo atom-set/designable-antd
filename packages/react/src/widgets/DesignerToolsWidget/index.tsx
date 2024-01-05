@@ -21,6 +21,8 @@ export type IDesignerToolsWidgetProps = {
   use?: DesignerToolsType[];
 };
 
+debugger;
+
 export const DesignerToolsWidget: React.FC<IDesignerToolsWidgetProps> =
   observer((props) => {
     const screen = useScreen();

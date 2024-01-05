@@ -16,6 +16,7 @@ import { Point } from "@designable/shared";
 export const useDragDropEffect = (engine: Engine) => {
   engine.subscribeTo(DragStartEvent, (event) => {
     if (engine.cursor.type !== CursorType.Normal) return;
+    console.log("DragStartEvent:", event);
     const target = event.data.target as HTMLElement;
     const el = target?.closest(`
        *[${engine.props.nodeIdAttrName}],
@@ -65,6 +66,7 @@ export const useDragDropEffect = (engine: Engine) => {
   engine.subscribeTo(DragMoveEvent, (event) => {
     if (engine.cursor.type !== CursorType.Normal) return;
     if (engine.cursor.dragType !== CursorDragType.Move) return;
+    console.log("DragMoveEvent:", event);
     const target = event.data.target as HTMLElement;
     const el = target?.closest(`
       *[${engine.props.nodeIdAttrName}],
@@ -90,6 +92,7 @@ export const useDragDropEffect = (engine: Engine) => {
   engine.subscribeTo(ViewportScrollEvent, (event) => {
     if (engine.cursor.type !== CursorType.Normal) return;
     if (engine.cursor.dragType !== CursorDragType.Move) return;
+    console.log("ViewportScrollEvent:", event);
     const point = new Point(
       engine.cursor.position.topClientX,
       engine.cursor.position.topClientY
@@ -126,6 +129,8 @@ export const useDragDropEffect = (engine: Engine) => {
   engine.subscribeTo(DragStopEvent, () => {
     if (engine.cursor.type !== CursorType.Normal) return;
     if (engine.cursor.dragType !== CursorDragType.Move) return;
+    console.log("DragStopEvent:", engine);
+
     engine.workbench.eachWorkspace((currentWorkspace) => {
       const operation = currentWorkspace.operation;
       const moveHelper = operation.moveHelper;

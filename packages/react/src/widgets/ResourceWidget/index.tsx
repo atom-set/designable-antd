@@ -28,7 +28,10 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
     const prefix = usePrefix("resource");
     const [expand, setExpand] = useState(props.defaultExpand);
     const renderNode = (source: IResource) => {
+      // eslint-disable-next-line no-console
       const { node, icon, title, thumb, span } = source;
+      console.log("node.id：", node.id);
+
       return (
         <div
           className={prefix + "-item"}
@@ -64,10 +67,12 @@ export const ResourceWidget: React.FC<IResourceWidgetProps> = observer(
       }
       return buf;
     }, []);
+
     const remainItems =
       sources.reduce((length, source) => {
         return length + (source.span ?? 1);
       }, 0) % 3;
+
     return (
       <div
         className={cls(prefix, props.className, {

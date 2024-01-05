@@ -8,6 +8,7 @@ export interface ISettingPanelProps {
   title?: React.ReactNode;
   extra?: React.ReactNode;
 }
+debugger;
 
 export const SettingsPanel: React.FC<ISettingPanelProps> = observer((props) => {
   const prefix = usePrefix("settings-panel");

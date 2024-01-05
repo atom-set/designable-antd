@@ -270,6 +270,7 @@ export class MoveHelper {
 
   dragStart(props: IMoveHelperDragStartProps) {
     const nodes = TreeNode.filterDraggable(props?.dragNodes);
+    console.log("props nodes:", nodes);
     if (nodes.length) {
       this.dragNodes = nodes;
       this.trigger(
@@ -286,6 +287,7 @@ export class MoveHelper {
 
   dragMove(props: IMoveHelperDragMoveProps) {
     const { point, touchNode } = props;
+    console.log("dragMove props:", props);
     if (!this.dragging) return;
     if (this.outline.isPointInViewport(point, false)) {
       this.activeViewport = this.outline;
@@ -334,6 +336,7 @@ export class MoveHelper {
   }
 
   dragDrop(props: IMoveHelperDragDropProps) {
+    console.log("dragDrop props:", props);
     this.trigger(
       new DropNodeEvent({
         target: this.operation.tree,
@@ -359,6 +362,7 @@ export class MoveHelper {
 
   trigger(event: any) {
     if (this.operation) {
+      debugger;
       return this.operation.dispatch(event);
     }
   }

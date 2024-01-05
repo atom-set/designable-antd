@@ -96,6 +96,7 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
                 infer="PushPinOutlined"
                 className={prefix + "-tabs-header-pin"}
                 onClick={() => {
+                  debugger;
                   setPinning(!pinning);
                 }}
               />
@@ -105,6 +106,7 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
                 infer="PushPinFilled"
                 className={prefix + "-tabs-header-pin-filled"}
                 onClick={() => {
+                  debugger;
                   setPinning(!pinning);
                 }}
               />
@@ -113,6 +115,7 @@ export const CompositePanel: React.FC<ICompositePanelProps> & {
               infer="Close"
               className={prefix + "-tabs-header-close"}
               onClick={() => {
+                debugger;
                 setVisible(false);
               }}
             />

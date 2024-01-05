@@ -34,7 +34,6 @@ export const calcAutoScrollBasicInfo = (
     end = bottom;
     pos = y;
   }
-
   const scrollerSize = end - begin;
 
   const moveDistance = scrollerSize > 400 ? 100 : scrollerSize / 3;

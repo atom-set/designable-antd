@@ -174,6 +174,8 @@ export class Cursor {
   }
 
   setDragStartPosition(position?: ICursorPosition) {
+    console.log("setDragStartPosition:", position);
+
     if (position) {
       this.dragStartPosition = { ...position };
     } else {
@@ -184,6 +186,7 @@ export class Cursor {
 
   setDragEndPosition(position?: ICursorPosition) {
     if (!this.dragStartPosition) return;
+    console.log("setDragEndPosition:", position);
     if (position) {
       this.dragEndPosition = { ...position };
       this.dragStartToEndDelta = calcPositionDelta(
